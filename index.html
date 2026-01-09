@@ -207,55 +207,45 @@
       color: var(--muted);
     }
 
+    /* Figures: 居中 + 缩小到更合理的高度（不裁切） */
     figure{ margin: 0; }
     .figure-card{
       background: var(--soft);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
-      overflow:hidden;
     }
-
-    /* ✅ 更合理的“框”：固定高度 + contain + 居中，避免错位撑爆 */
-    .figure-frame{
-      width: 100%;
-      border-radius: 12px;
+    .figure-media{
+      background:#fff;
       border: 1px solid var(--border);
-      background: #fff;
-      overflow: hidden;
-
+      border-radius: 12px;
+      padding: 10px;
       display:flex;
       align-items:center;
-      justify-content:center;
-
-      padding: 10px;
+      justify-content:center; /* 关键：不再“靠左/靠右” */
     }
-    .figure-frame.teaser{ height: 340px; }
-    .figure-frame.pipeline{ height: 560px; }
-
-    .figure-frame img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
+    .paper-fig{
       display:block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
     }
-
-    .figure-open{
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--muted2);
+    .paper-fig.compact{
+      width: auto;        /* 让它按高度缩放 */
+      max-height: 560px;  /* 关键：intro/pipeline不会占满一屏 */
     }
-    .figure-open a{
-      color: var(--accent);
-      font-weight: 600;
+    @media (max-width: 720px){
+      .paper-fig.compact{
+        width: 100%;
+        max-height: none;
+      }
     }
-
     figcaption{
       margin-top: 10px;
       color: var(--muted2);
       font-size: 13px;
     }
+    figcaption a{ text-decoration: underline; }
 
     pre{
       margin: 0;
@@ -300,8 +290,6 @@
 
     @media (max-width: 880px){
       .navlinks{ display:none; }
-      .figure-frame.teaser{ height: 260px; }
-      .figure-frame.pipeline{ height: 420px; }
     }
   </style>
 </head>
@@ -382,15 +370,11 @@
 
     <div class="figure-card" style="margin-top:16px;">
       <figure>
-        <!-- ✅ intro: SVG + 固定框 -->
-        <div class="figure-frame teaser">
-          <img src="assets/introdanlan.svg" alt="MMDR-Bench teaser figure (introdanlan)" />
-        </div>
-        <div class="figure-open">
-          Open full-size: <a href="assets/introdanlan.svg" target="_blank" rel="noopener">introdanlan.svg</a>
+        <div class="figure-media">
+          <img class="paper-fig compact" src="assets/introdanlan.svg" alt="MMDR-Bench overview teaser" />
         </div>
         <figcaption>
-          MMDR-Bench evaluates multimodal deep research abilities at both integrated and atomic levels.
+          Teaser / benchmark overview (from the paper). <a href="assets/introdanlan.svg" target="_blank" rel="noopener">Open full-size</a>.
         </figcaption>
       </figure>
     </div>
@@ -465,15 +449,11 @@
 
     <div class="figure-card" style="margin-top:16px;">
       <figure>
-        <!-- ✅ pipeline: SVG + 更大但仍受控的框 -->
-        <div class="figure-frame pipeline">
-          <img src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline (pipeline)" />
-        </div>
-        <div class="figure-open">
-          Open full-size: <a href="assets/pipeline.svg" target="_blank" rel="noopener">pipeline.svg</a>
+        <div class="figure-media">
+          <img class="paper-fig compact" src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline" />
         </div>
         <figcaption>
-          The MMDR-Bench evaluation pipeline. Reports are processed through parallel FLAE and TRACE modules, followed by a gated MOSAIC stage.
+          MMDR-Bench evaluation pipeline (from the paper). <a href="assets/pipeline.svg" target="_blank" rel="noopener">Open full-size</a>.
         </figcaption>
       </figure>
     </div>
@@ -501,11 +481,8 @@
         <p class="muted2">Export a “main results” figure/table from the PDF and place it here.</p>
         <div class="figure-card" style="margin-top:10px;">
           <figure>
-            <div class="figure-frame teaser" style="height:260px;">
-              <img src="assets/fig_results.svg" alt="Main results (optional)" />
-            </div>
-            <div class="figure-open">
-              (optional) <a href="assets/fig_results.svg" target="_blank" rel="noopener">fig_results.svg</a>
+            <div class="figure-media">
+              <img class="paper-fig" src="assets/fig_results.png" alt="Main results (optional)" />
             </div>
             <figcaption>Optional: main results snapshot.</figcaption>
           </figure>
