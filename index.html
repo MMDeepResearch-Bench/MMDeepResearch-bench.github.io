@@ -536,9 +536,38 @@
   // 方案 A：把数据直接写在这里（推荐先用这个确保能动）
   // 字段名要和 th 的 data-sort 一致：overall/read/insh/stru/vef/con/cov/fid/sem/acc/vqa
   let DATA = [
-    // 示例（你换成真实数据）
-    { category: "multimodal", model: "GPT-5.2", overall: 37.06, read: 45.82, insh: 0, stru: 0, vef: 26.42, con: 0, cov: 0, fid: 0, sem: 0, acc: 0, vqa: 0 },
-    { category: "multimodal", model: "Gemini-2.5-Pro", overall: 36.76, read: 61.89, insh: 0, stru: 0, vef: 38.57, con: 0, cov: 0, fid: 0, sem: 0, acc: 0, vqa: 0 }
+    // Single-Modal, w/o Search
+    { category: "single", model: "OpenAI o3-mini", overall: 31.96, read: 53.75, insh: 52.65, stru: 37.11, vef: 13.57, con: 28.45, cov: 33.74, fid: 48.35, sem: 15.47, acc: 90.00, vqa: 12.60 },
+    { category: "single", model: "DeepSeek-V3.2", overall: 43.71, read: 75.37, insh: 87.82, stru: 58.16, vef: 19.28, con: 33.34, cov: 45.48, fid: 18.77, sem: 42.19, acc: 83.85, vqa: 12.88 },
+    { category: "single", model: "Kimi K2 (Thinking)", overall: 36.91, read: 71.34, insh: 77.27, stru: 47.34, vef: 17.14, con: 23.54, cov: 24.62, fid: 27.20, sem: 42.00, acc: 90.00, vqa: 9.50 },
+    { category: "single", model: "Qwen 3 235B (A22B)", overall: 36.04, read: 77.56, insh: 85.74, stru: 54.05, vef: 17.14, con: 35.60, cov: 45.73, fid: 22.98, sem: 20.43, acc: 53.09, vqa: 4.95 },
+    
+    // Multimodal, w/o Search
+    { category: "multimodal", model: "Qwen 3 VL 235B (A22B)", overall: 35.08, read: 77.01, insh: 86.48, stru: 52.21, vef: 43.57, con: 18.34, cov: 15.25, fid: 10.68, sem: 30.58, acc: 93.52, vqa: 16.98 },
+    { category: "multimodal", model: "GPT-4o", overall: 28.62, read: 52.52, insh: 68.41, stru: 40.90, vef: 10.04, con: 10.94, cov: 4.61, fid: 11.89, sem: 24.10, acc: 71.43, vqa: 18.72 },
+    { category: "multimodal", model: "GPT-4.1", overall: 36.95, read: 79.34, insh: 89.04, stru: 53.00, vef: 39.29, con: 15.90, cov: 10.06, fid: 5.61, sem: 29.66, acc: 80.56, vqa: 19.92 },
+    { category: "multimodal", model: "GPT-4.1 mini", overall: 34.23, read: 71.25, insh: 83.62, stru: 49.60, vef: 12.86, con: 24.20, cov: 25.44, fid: 12.33, sem: 32.62, acc: 89.91, vqa: 13.21 },
+    { category: "multimodal", model: "GPT-4.1 nano", overall: 28.07, read: 49.77, insh: 64.82, stru: 37.28, vef: 10.79, con: 18.99, cov: 19.86, fid: 24.42, sem: 27.02, acc: 76.30, vqa: 13.04 },
+    { category: "multimodal", model: "GPT-5 mini", overall: 38.49, read: 70.06, insh: 81.73, stru: 47.18, vef: 39.29, con: 20.02, cov: 26.64, fid: 32.61, sem: 33.90, acc: 94.23, vqa: 15.60 },
+    { category: "multimodal", model: "GPT-5.1", overall: 32.69, read: 79.34, insh: 89.04, stru: 53.00, vef: 35.71, con: 15.90, cov: 2.30, fid: 13.67, sem: 22.03, acc: 84.29, vqa: 14.32 },
+    { category: "multimodal", model: "GPT-5.2", overall: 32.76, read: 69.75, insh: 83.92, stru: 54.31, vef: 46.43, con: 14.00, cov: 1.43, fid: 5.30, sem: 12.83, acc: 50.00, vqa: 9.16 },
+    { category: "multimodal", model: "Grok-3", overall: 29.89, read: 75.17, insh: 86.13, stru: 52.24, vef: 20.00, con: 12.57, cov: 5.79, fid: 2.80, sem: 22.18, acc: 68.39, vqa: 13.89 },
+    { category: "multimodal", model: "Grok-4 (Fast Reasoning)", overall: 36.10, read: 60.62, insh: 80.49, stru: 52.99, vef: 36.43, con: 17.30, cov: 14.62, fid: 6.12, sem: 28.46, acc: 87.45, vqa: 19.34 },
+    
+    // Multimodal, w/ Search
+    { category: "multimodal", model: "Claude 4.5 Haiku", overall: 33.67, read: 74.60, insh: 81.80, stru: 53.22, vef: 28.57, con: 17.90, cov: 14.10, fid: 18.56, sem: 25.98, acc: 76.90, vqa: 11.70 },
+    { category: "multimodal", model: "Claude 4.5 Sonnet", overall: 33.61, read: 77.63, insh: 82.31, stru: 51.65, vef: 32.14, con: 14.36, cov: 15.09, fid: 16.11, sem: 20.73, acc: 70.13, vqa: 14.41 },
+    { category: "multimodal", model: "Claude 4.5 Opus", overall: 33.84, read: 77.81, insh: 83.86, stru: 50.70, vef: 35.00, con: 30.64, cov: 41.14, fid: 21.97, sem: 21.30, acc: 77.21, vqa: 14.75 },
+    { category: "multimodal", model: "Gemini 2.5 Flash", overall: 38.40, read: 56.22, insh: 68.58, stru: 55.44, vef: 32.86, con: 25.35, cov: 27.77, fid: 38.30, sem: 40.67, acc: 75.96, vqa: 25.49 },
+    { category: "multimodal", model: "Gemini 2.5 Pro", overall: 38.04, read: 80.04, insh: 85.94, stru: 51.44, vef: 38.57, con: 30.18, cov: 28.77, fid: 14.98, sem: 19.47, acc: 92.86, vqa: 12.50 },
+    { category: "multimodal", model: "Gemini 3 Flash", overall: 44.43, read: 81.22, insh: 90.22, stru: 52.00, vef: 45.71, con: 31.95, cov: 35.07, fid: 15.42, sem: 36.61, acc: 87.31, vqa: 18.99 },
+    { category: "multimodal", model: "Gemini 3 Pro", overall: 44.68, read: 58.05, insh: 75.39, stru: 49.85, vef: 46.43, con: 37.98, cov: 41.85, fid: 6.46, sem: 40.69, acc: 80.44, vqa: 23.15 },
+    
+    // Deep Research Agent
+    { category: "agent", model: "Tongyi Deep Research (30B-A3B)", overall: 29.02, read: 54.27, insh: 62.67, stru: 40.07, vef: 12.86, con: 25.99, cov: 30.87, fid: 24.25, sem: 20.39, acc: 93.33, vqa: 20.39 },
+    { category: "agent", model: "Perplexity Sonar Deep Research", overall: 37.55, read: 62.29, insh: 64.35, stru: 47.80, vef: 27.86, con: 33.12, cov: 41.51, fid: 16.68, sem: 50.79, acc: 87.75, vqa: 21.22 },
+    { category: "agent", model: "ChatGPT Deep Research (o3-mini)", overall: 29.50, read: 52.40, insh: 63.61, stru: 37.30, vef: 29.29, con: 10.19, cov: 4.16, fid: 11.07, sem: 27.32, acc: 73.44, vqa: 21.75 },
+    { category: "agent", model: "Gemini Deep Research (Gemini 3 Pro)", overall: 49.41, read: 84.53, insh: 89.56, stru: 70.86, vef: 35.71, con: 56.17, cov: 52.84, fid: 31.29, sem: 41.29, acc: 87.54, vqa: 28.45 }
   ];
 
   // 方案 B（可选）：如果你想从 assets/leaderboard.json 加载，把上面 DATA 置空并取消下面注释
