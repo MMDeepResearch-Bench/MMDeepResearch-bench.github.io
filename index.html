@@ -119,6 +119,17 @@
     .muted{ color: var(--muted); }
     .muted2{ color: var(--muted2); }
 
+    /* --- Example layout --- */
+    .example-col{ grid-column: span 6; }
+    @media (max-width: 900px){
+      .example-col{ grid-column: span 12; }
+    }
+    .example-fig{
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
     /* --- MMMU-like hero / header block --- */
     .hero-wrap{
       background:
@@ -358,7 +369,7 @@
       margin-top: 20px;
     }
     .leaderboard-header {
-      background: #0b1220; /* more MMMU-ish (dark bar) */
+      background: #0b1220;
       color: white;
       padding: 22px 24px;
     }
@@ -392,7 +403,7 @@
       padding: 6px 14px;
       border: 1px solid var(--border);
       background: white;
-      border-radius: 999px; /* closer to MMMU rounded chips */
+      border-radius: 999px;
       cursor: pointer;
       font-size: 13px;
       transition: all 0.2s;
@@ -498,7 +509,6 @@
 
   <script>
 (() => {
-  // Fields must match th data-sort: model/overall/read/insh/stru/vef/con/cov/fid/sem/acc/vqa
   let DATA = [
     // Single-Modal, w/o Search
     { category: "single", model: "OpenAI o3-mini", overall: 31.96, read: 53.75, insh: 52.65, stru: 37.11, vef: 13.57, con: 28.45, cov: 33.74, fid: 48.35, sem: 15.47, acc: 90.00, vqa: 12.60 },
@@ -581,7 +591,7 @@
   }
 
   function getCompanyLogo(modelName) {
-    const model = modelName.toLowerCase();
+    const model = String(modelName || "").toLowerCase();
     if (model.includes("gpt") || model.includes("openai") || model.includes("chatgpt")) {
       return '<img src="ico/gpt.png" alt="OpenAI" class="company-logo" title="OpenAI" />';
     }
@@ -870,7 +880,7 @@
     </div>
   </section>
 
-  <!-- Dataset band (MMMU-like separator) -->
+  <!-- Dataset band -->
   <div class="band">
     <div class="band-inner">
       <h1 class="band-title">MMDR-Bench Benchmark</h1>
@@ -1065,6 +1075,42 @@
           diverse systems show persistent trade-offs between writing quality, citation discipline, and multimodal grounding.
         </p>
       </div>
+
+      <!-- ✅ Example is INSIDE the section + container -->
+      <h3 style="margin-top:22px;">Example</h3>
+
+      <div class="grid example-grid" style="margin-top:12px;">
+        <div class="example-col">
+          <figure class="figure-card">
+            <div class="figure-media">
+              <img class="paper-fig example-fig"
+                   src="assets/bad.svg"
+                   alt="Daily-task example: screenshot-based multimodal deep research" />
+            </div>
+            <figcaption>
+              <strong>Daily-task example.</strong>
+              Screenshot-based multimodal task requiring correct visual interpretation and
+              citation-grounded reporting.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="example-col">
+          <figure class="figure-card">
+            <div class="figure-media">
+              <img class="paper-fig example-fig"
+                   src="assets/good.svg"
+                   alt="Research-task example: chart-based multimodal deep research" />
+            </div>
+            <figcaption>
+              <strong>Research-task example.</strong>
+              Chart-driven task demanding visual-faithful reasoning, multi-step retrieval,
+              and long-form synthesis.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <!-- ✅ Example end -->
     </div>
   </section>
 
