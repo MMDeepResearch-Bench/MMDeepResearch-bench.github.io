@@ -24,6 +24,7 @@
       --shadow: 0 12px 28px rgba(2, 6, 23, .08);
       --radius: 14px;
       --max: 1120px;
+      --max-content: 980px; /* closer to MMMU max desktop */
     }
     *{ box-sizing:border-box; }
     body{
@@ -35,6 +36,14 @@
     }
     a{ color: inherit; text-decoration: none; }
     a:hover{ color: var(--accent); text-decoration: underline; }
+
+    /* --- minimal "bulma-like" helpers for MMMU layout feel --- */
+    .container{ max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+    .is-max-desktop{ max-width: var(--max-content); margin: 0 auto; }
+    .has-text-centered{ text-align: center; }
+    .has-text-justified{ text-align: justify; }
+    .content p{ margin: 0 0 14px; }
+    .content img{ max-width: 100%; height: auto; }
 
     header{
       position: sticky;
@@ -101,10 +110,16 @@
       margin: 0 0 14px;
       letter-spacing: -.2px;
     }
+    h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.2px;
+    }
     p{ margin: 0 0 14px; color: var(--fg); }
     .muted{ color: var(--muted); }
     .muted2{ color: var(--muted2); }
 
+    /* --- MMMU-like hero / header block --- */
     .hero-wrap{
       background:
         radial-gradient(900px 260px at 15% 0%, rgba(79,70,229,.10), transparent 60%),
@@ -122,55 +137,87 @@
       align-items:center;
       gap: 10px;
       color: var(--muted2);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
     }
-    .title{
+    .pub-title{
       font-size: clamp(32px, 5vw, 52px);
       line-height: 1.08;
-      margin: 10px 0 12px;
+      margin: 12px 0 10px;
       letter-spacing: -.02em;
     }
-    .subtitle{
+    .pub-subtitle{
       max-width: 860px;
       color: var(--muted);
       font-size: 17px;
-      margin-bottom: 18px;
+      margin: 0 auto 18px;
     }
-    .authors{
+    .pub-authors{
       color: var(--muted2);
       font-size: 14px;
-      margin-bottom: 22px;
+      margin: 0 0 18px;
     }
-    .actions{
+
+    /* --- MMMU-like rounded dark buttons row --- */
+    .publication-links{
       display:flex;
       gap: 12px;
       flex-wrap: wrap;
       align-items:center;
+      justify-content: center;
+      margin-top: 10px;
     }
-    .btn{
+    .button{
       display:inline-flex;
       align-items:center;
       gap: 8px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid #0b1220;
+      background: #0b1220;
+      color: #fff;
+      font-weight: 650;
+      font-size: 14px;
+      line-height: 1;
+      box-shadow: 0 1px 0 rgba(2,6,23,.06);
+    }
+    .button:hover{ text-decoration:none; filter: brightness(1.06); color:#fff; }
+    .button .icon{
+      width: 18px;
+      height: 18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 15px;
+    }
+    .button.is-light{
       background: #fff;
       color: var(--fg);
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 1px 0 rgba(2,6,23,.04);
+      border-color: var(--border);
     }
-    .btn.primary{
-      border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-      box-shadow: 0 14px 30px rgba(79,70,229,.18);
-    }
-    .btn:hover{ text-decoration:none; filter: brightness(1.02); }
+    .button.is-light:hover{ color: var(--accent); }
 
+    /* --- section “band” like MMMU light hero separators --- */
+    .band{
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--soft);
+      padding: 26px 18px;
+    }
+    .band-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .band-title{
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -.02em;
+    }
+
+    /* existing components (kept) */
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -183,24 +230,20 @@
       padding: 16px 16px;
       box-shadow: var(--shadow);
     }
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -.2px;
-    }
-    .stat{
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-      margin: 4px 0 2px;
+    .meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 14px;
     }
     .badge{
       display:inline-flex;
       align-items:center;
       gap: 6px;
       font-size: 12px;
-      font-weight: 600;
-      padding: 3px 10px;
+      font-weight: 650;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: rgba(248,250,252,.85);
@@ -224,7 +267,6 @@
       justify-content:center;
       overflow: hidden;
     }
-    
     .paper-fig.intro{
       display:block;
       width: 100%;
@@ -232,7 +274,6 @@
       max-width: 100%;
       border-radius: 10px;
     }
-    
     .paper-fig.pipeline{
       display:block;
       width: auto;
@@ -241,26 +282,20 @@
       max-width: 100%;
       border-radius: 10px;
     }
-    
     .paper-fig{
       display:block;
       max-width: 100%;
       height: auto;
       border-radius: 10px;
     }
-    
     @media (max-width: 768px){
       .paper-fig.intro,
       .paper-fig.pipeline{
         width: 100%;
         max-height: none;
       }
-      
-      .figure-media{
-        padding: 12px;
-      }
+      .figure-media{ padding: 12px; }
     }
-    
     figcaption{
       margin-top: 10px;
       color: var(--muted2);
@@ -313,7 +348,7 @@
       .navlinks{ display:none; }
     }
 
-    /* Leaderboard Styles */
+    /* Leaderboard Styles (kept) */
     .leaderboard-container {
       background: white;
       border: 1px solid var(--border);
@@ -322,25 +357,23 @@
       box-shadow: var(--shadow);
       margin-top: 20px;
     }
-    
     .leaderboard-header {
-      background: linear-gradient(135deg, var(--accent) 0%, #764ba2 100%);
+      background: #0b1220; /* more MMMU-ish (dark bar) */
       color: white;
-      padding: 24px;
+      padding: 22px 24px;
     }
-    
     .leaderboard-header h3 {
       margin: 0 0 4px;
       font-size: 20px;
       color: white;
     }
-    
     .leaderboard-header p {
       margin: 0;
       opacity: 0.95;
       font-size: 14px;
+      color: white;
     }
-    
+
     .controls {
       padding: 16px 20px;
       background: var(--soft);
@@ -350,70 +383,50 @@
       flex-wrap: wrap;
       align-items: center;
     }
-    
     .filter-group {
       display: flex;
       gap: 8px;
       align-items: center;
     }
-    
     .filter-btn {
       padding: 6px 14px;
       border: 1px solid var(--border);
       background: white;
-      border-radius: 8px;
+      border-radius: 999px; /* closer to MMMU rounded chips */
       cursor: pointer;
       font-size: 13px;
       transition: all 0.2s;
-      font-weight: 500;
+      font-weight: 600;
     }
-    
-    .filter-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    
-    .filter-btn.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-    
-    .search-box {
-      flex: 1;
-      min-width: 200px;
-      max-width: 300px;
-    }
-    
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: #0b1220; color: white; border-color: #0b1220; }
+
+    .search-box { flex: 1; min-width: 200px; max-width: 300px; }
     .search-box input {
       width: 100%;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 999px;
       font-size: 13px;
+      outline: none;
     }
-    
-    .table-container {
-      overflow-x: auto;
+    .search-box input:focus{
+      border-color: rgba(79,70,229,.5);
+      box-shadow: 0 0 0 3px rgba(79,70,229,.12);
     }
-    
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    
+
+    .table-container { overflow-x: auto; }
+    .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .leaderboard-table thead {
       background: var(--soft);
       position: sticky;
       top: 0;
       z-index: 10;
     }
-    
     .leaderboard-table th {
       padding: 10px 8px;
       text-align: center;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--muted);
       border-bottom: 2px solid var(--border);
       white-space: nowrap;
@@ -421,56 +434,31 @@
       user-select: none;
       font-size: 12px;
     }
-    
-    .leaderboard-table th:hover {
-      background: #e9ecef;
-    }
-    
-    .leaderboard-table th.sortable::after {
-      content: ' ⇅';
-      opacity: 0.3;
-      font-size: 10px;
-    }
-    
-    .leaderboard-table th.sort-asc::after {
-      content: ' ↑';
-      opacity: 1;
-    }
-    
-    .leaderboard-table th.sort-desc::after {
-      content: ' ↓';
-      opacity: 1;
-    }
-    
-    .metric-group {
-      border-left: 2px solid var(--border);
-    }
-    
+    .leaderboard-table th:hover { background: #eef2ff; }
+    .leaderboard-table th.sortable::after { content: ' ⇅'; opacity: 0.3; font-size: 10px; }
+    .leaderboard-table th.sort-asc::after { content: ' ↑'; opacity: 1; }
+    .leaderboard-table th.sort-desc::after { content: ' ↓'; opacity: 1; }
+    .metric-group { border-left: 2px solid var(--border); }
+
     .leaderboard-table td {
       padding: 10px 8px;
       text-align: center;
       border-bottom: 1px solid #f1f3f5;
     }
-    
-    .leaderboard-table tr:hover {
-      background: var(--soft);
-    }
-    
+    .leaderboard-table tr:hover { background: var(--soft); }
+
     .model-cell {
       text-align: left !important;
-      font-weight: 500;
+      font-weight: 600;
       padding-left: 12px !important;
       position: sticky;
       left: 0;
       background: white;
       z-index: 5;
-      min-width: 180px;
+      min-width: 200px;
     }
-    
-    .leaderboard-table tr:hover .model-cell {
-      background: var(--soft);
-    }
-    
+    .leaderboard-table tr:hover .model-cell { background: var(--soft); }
+
     .company-logo {
       display: inline-block;
       margin-right: 8px;
@@ -478,17 +466,13 @@
       width: 20px;
       height: 20px;
       object-fit: contain;
-      opacity: 0.85;
+      opacity: 0.9;
       transition: opacity 0.2s, transform 0.2s;
       flex-shrink: 0;
-      border-radius: 3px;
+      border-radius: 4px;
     }
-    
-    .model-cell:hover .company-logo {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    
+    .model-cell:hover .company-logo { opacity: 1; transform: scale(1.05); }
+
     .rank {
       display: inline-block;
       width: 22px;
@@ -498,68 +482,30 @@
       border-radius: 50%;
       margin-right: 6px;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
     }
-    
     .rank-1 { background: #ffd700; color: #000; }
     .rank-2 { background: #c0c0c0; color: #000; }
     .rank-3 { background: #cd7f32; color: #fff; }
     .rank-other { background: #e9ecef; color: #6c757d; }
-    
-    .best-score {
-      background: #d1f4e0;
-      color: #0a6e3a;
-      font-weight: 600;
-      border-radius: 4px;
-      padding: 2px 4px;
-    }
-    
-    .second-score {
-      background: #e7f3ff;
-      color: #0056b3;
-      font-weight: 600;
-      border-radius: 4px;
-      padding: 2px 4px;
-    }
-    
-    .category-row {
-      background: #e9ecef;
-      font-weight: 600;
-      font-style: italic;
-    }
-    
-    .category-row td {
-      padding: 8px 12px;
-      text-align: left;
-      font-size: 12px;
-    }
-    
+
     @media (max-width: 768px){
-      .controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      
-      .search-box {
-        max-width: 100%;
-      }
-      
-      .model-cell {
-        position: static;
-      }
+      .controls { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .model-cell { position: static; }
     }
   </style>
+
   <script>
 (() => {
-  // 方案 A：把数据直接写在这里（推荐先用这个确保能动）
-  // 字段名要和 th 的 data-sort 一致：overall/read/insh/stru/vef/con/cov/fid/sem/acc/vqa
+  // Fields must match th data-sort: model/overall/read/insh/stru/vef/con/cov/fid/sem/acc/vqa
   let DATA = [
     // Single-Modal, w/o Search
     { category: "single", model: "OpenAI o3-mini", overall: 31.96, read: 53.75, insh: 52.65, stru: 37.11, vef: 13.57, con: 28.45, cov: 33.74, fid: 48.35, sem: 15.47, acc: 90.00, vqa: 12.60 },
     { category: "single", model: "DeepSeek-V3.2", overall: 43.71, read: 75.37, insh: 87.82, stru: 58.16, vef: 19.28, con: 33.34, cov: 45.48, fid: 18.77, sem: 42.19, acc: 83.85, vqa: 12.88 },
     { category: "single", model: "Kimi K2 (Thinking)", overall: 36.91, read: 71.34, insh: 77.27, stru: 47.34, vef: 17.14, con: 23.54, cov: 24.62, fid: 27.20, sem: 42.00, acc: 90.00, vqa: 9.50 },
     { category: "single", model: "Qwen 3 235B (A22B)", overall: 36.04, read: 77.56, insh: 85.74, stru: 54.05, vef: 17.14, con: 35.60, cov: 45.73, fid: 22.98, sem: 20.43, acc: 53.09, vqa: 4.95 },
-    
+
     // Multimodal, w/o Search
     { category: "multimodal", model: "Qwen 3 VL 235B (A22B)", overall: 35.08, read: 77.01, insh: 86.48, stru: 52.21, vef: 43.57, con: 18.34, cov: 15.25, fid: 10.68, sem: 30.58, acc: 93.52, vqa: 16.98 },
     { category: "multimodal", model: "GPT-4o", overall: 28.62, read: 52.52, insh: 68.41, stru: 40.90, vef: 10.04, con: 10.94, cov: 4.61, fid: 11.89, sem: 24.10, acc: 71.43, vqa: 18.72 },
@@ -571,7 +517,7 @@
     { category: "multimodal", model: "GPT-5.2", overall: 32.76, read: 69.75, insh: 83.92, stru: 54.31, vef: 46.43, con: 14.00, cov: 1.43, fid: 5.30, sem: 12.83, acc: 50.00, vqa: 9.16 },
     { category: "multimodal", model: "Grok-3", overall: 29.89, read: 75.17, insh: 86.13, stru: 52.24, vef: 20.00, con: 12.57, cov: 5.79, fid: 2.80, sem: 22.18, acc: 68.39, vqa: 13.89 },
     { category: "multimodal", model: "Grok-4 (Fast Reasoning)", overall: 36.10, read: 60.62, insh: 80.49, stru: 52.99, vef: 36.43, con: 17.30, cov: 14.62, fid: 6.12, sem: 28.46, acc: 87.45, vqa: 19.34 },
-    
+
     // Multimodal, w/ Search
     { category: "multimodal", model: "Claude 4.5 Haiku", overall: 33.67, read: 74.60, insh: 81.80, stru: 53.22, vef: 28.57, con: 17.90, cov: 14.10, fid: 18.56, sem: 25.98, acc: 76.90, vqa: 11.70 },
     { category: "multimodal", model: "Claude 4.5 Sonnet", overall: 33.61, read: 77.63, insh: 82.31, stru: 51.65, vef: 32.14, con: 14.36, cov: 15.09, fid: 16.11, sem: 20.73, acc: 70.13, vqa: 14.41 },
@@ -580,7 +526,7 @@
     { category: "multimodal", model: "Gemini 2.5 Pro", overall: 38.04, read: 80.04, insh: 85.94, stru: 51.44, vef: 38.57, con: 30.18, cov: 28.77, fid: 14.98, sem: 19.47, acc: 92.86, vqa: 12.50 },
     { category: "multimodal", model: "Gemini 3 Flash", overall: 44.43, read: 81.22, insh: 90.22, stru: 52.00, vef: 45.71, con: 31.95, cov: 35.07, fid: 15.42, sem: 36.61, acc: 87.31, vqa: 18.99 },
     { category: "multimodal", model: "Gemini 3 Pro", overall: 44.68, read: 58.05, insh: 75.39, stru: 49.85, vef: 46.43, con: 37.98, cov: 41.85, fid: 6.46, sem: 40.69, acc: 80.44, vqa: 23.15 },
-    
+
     // Deep Research Agent
     { category: "agent", model: "Tongyi Deep Research (30B-A3B)", overall: 29.02, read: 54.27, insh: 62.67, stru: 40.07, vef: 12.86, con: 25.99, cov: 30.87, fid: 24.25, sem: 20.39, acc: 93.33, vqa: 20.39 },
     { category: "agent", model: "Perplexity Sonar Deep Research", overall: 37.55, read: 62.29, insh: 64.35, stru: 47.80, vef: 27.86, con: 33.12, cov: 41.51, fid: 16.68, sem: 50.79, acc: 87.75, vqa: 21.22 },
@@ -588,20 +534,7 @@
     { category: "agent", model: "Gemini Deep Research (Gemini 3 Pro)", overall: 49.41, read: 84.53, insh: 89.56, stru: 70.86, vef: 35.71, con: 56.17, cov: 52.84, fid: 31.29, sem: 41.29, acc: 87.54, vqa: 28.45 }
   ];
 
-  // 方案 B（可选）：如果你想从 assets/leaderboard.json 加载，把上面 DATA 置空并取消下面注释
-  // async function loadData() {
-  //   const r = await fetch("assets/leaderboard.json", { cache: "no-store" });
-  //   if (!r.ok) throw new Error("Failed to load leaderboard.json: " + r.status);
-  //   DATA = await r.json();
-  // }
-
-  let state = {
-    filter: "all",
-    query: "",
-    sortKey: "overall",
-    sortDir: "desc"
-  };
-
+  let state = { filter: "all", query: "", sortKey: "overall", sortDir: "desc" };
   let tableBody, searchInput, filterBtns, ths;
 
   function safeNum(x) {
@@ -623,13 +556,7 @@
     const dir = sortDir === "asc" ? 1 : -1;
 
     rows.sort((a, b) => {
-      if (sortKey === "model") {
-        return dir * String(a.model || "").localeCompare(String(b.model || ""));
-      }
-      if (sortKey === "rank") {
-        // rank 是派生的：按 overall 排出来的名次
-        return dir * (safeNum(a.__rank) - safeNum(b.__rank));
-      }
+      if (sortKey === "model") return dir * String(a.model || "").localeCompare(String(b.model || ""));
       return dir * (safeNum(a[sortKey]) - safeNum(b[sortKey]));
     });
 
@@ -637,7 +564,6 @@
   }
 
   function computeRanks(rows) {
-    // rank 固定按 overall（desc）生成
     const tmp = [...rows].sort((a,b) => safeNum(b.overall) - safeNum(a.overall));
     tmp.forEach((r, i) => (r.__rank = i + 1));
   }
@@ -656,57 +582,52 @@
 
   function getCompanyLogo(modelName) {
     const model = modelName.toLowerCase();
-    // OpenAI
     if (model.includes("gpt") || model.includes("openai") || model.includes("chatgpt")) {
-      return '<img src="ico/gpt.png" alt="OpenAI" class="company-logo company-openai" title="OpenAI" />';
+      return '<img src="ico/gpt.png" alt="OpenAI" class="company-logo" title="OpenAI" />';
     }
-    // Anthropic
     if (model.includes("claude")) {
-      return '<img src="ico/Claude.png" alt="Anthropic" class="company-logo company-anthropic" title="Anthropic" />';
+      return '<img src="ico/Claude.png" alt="Anthropic" class="company-logo" title="Anthropic" />';
     }
-    // Google/Gemini
     if (model.includes("gemini")) {
-      return '<img src="ico/gemini.png" alt="Google" class="company-logo company-google" title="Google" />';
+      return '<img src="ico/gemini.png" alt="Google" class="company-logo" title="Google" />';
     }
-    // DeepSeek
     if (model.includes("deepseek")) {
-      return '<img src="ico/deepseek.png" alt="DeepSeek" class="company-logo company-deepseek" title="DeepSeek" />';
+      return '<img src="ico/deepseek.png" alt="DeepSeek" class="company-logo" title="DeepSeek" />';
     }
-    // Alibaba/通义/Qwen/Tongyi
     if (model.includes("qwen") || model.includes("tongyi")) {
-      return '<img src="ico/qwen.png" alt="Alibaba" class="company-logo company-alibaba" title="Alibaba" />';
+      return '<img src="ico/qwen.png" alt="Alibaba" class="company-logo" title="Alibaba" />';
     }
-    // Moonshot AI / Kimi
     if (model.includes("kimi")) {
-      return '<img src="ico/kimi.png" alt="Moonshot AI" class="company-logo company-moonshot" title="Moonshot AI" />';
+      return '<img src="ico/kimi.png" alt="Moonshot AI" class="company-logo" title="Moonshot AI" />';
     }
-    // xAI / Grok
     if (model.includes("grok")) {
-      return '<img src="ico/grok.png" alt="xAI" class="company-logo company-xai" title="xAI" />';
+      return '<img src="ico/grok.png" alt="xAI" class="company-logo" title="xAI" />';
     }
-    // Perplexity
     if (model.includes("perplexity") || model.includes("sonar")) {
-      return '<img src="ico/sonar.png" alt="Perplexity" class="company-logo company-perplexity" title="Perplexity" />';
+      return '<img src="ico/sonar.png" alt="Perplexity" class="company-logo" title="Perplexity" />';
     }
     return '<span class="company-logo" title="Unknown">•</span>';
   }
 
   function render() {
     if (!tableBody) return;
-    
+
     const rows = getFiltered();
     computeRanks(rows);
     const sorted = sortRows([...rows]);
 
     if (!sorted.length) {
-      tableBody.innerHTML = `<tr><td colspan="13" style="text-align:center; color:#64748b; padding:18px;">No results</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="12" style="text-align:center; color:#64748b; padding:18px;">No results</td></tr>`;
       return;
     }
 
     tableBody.innerHTML = sorted.map(r => `
       <tr data-category="${r.category || ""}">
-        <td>${r.__rank}</td>
-        <td class="model-cell"><span class="${rankClass(r.__rank)}">${r.__rank}</span>${getCompanyLogo(r.model)} <span class="model-name">${r.model || ""}</span></td>
+        <td class="model-cell">
+          <span class="${rankClass(r.__rank)}">${r.__rank}</span>
+          ${getCompanyLogo(r.model)}
+          <span class="model-name">${r.model || ""}</span>
+        </td>
         <td>${fmt(r.overall)}</td>
         <td>${fmt(r.read)}</td>
         <td>${fmt(r.insh)}</td>
@@ -730,7 +651,6 @@
   }
 
   function bind() {
-    // filters
     if (filterBtns && filterBtns.length > 0) {
       filterBtns.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -742,7 +662,6 @@
       });
     }
 
-    // search
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         state.query = e.target.value || "";
@@ -750,7 +669,6 @@
       });
     }
 
-    // sort
     if (ths && ths.length > 0) {
       ths.forEach(th => {
         th.addEventListener("click", () => {
@@ -770,11 +688,7 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    // 如果你用方案 B 加载 JSON，就在这里 await loadData()
-    // try { await loadData(); } catch(e){ console.warn(e); }
-
-    // 在DOM加载完成后获取元素
+  document.addEventListener("DOMContentLoaded", () => {
     tableBody = document.getElementById("tableBody");
     searchInput = document.getElementById("searchInput");
     filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
@@ -797,11 +711,12 @@
       </div>
 
       <div class="navlinks">
-        <a href="#overview">Overview</a>
-        <a href="#benchmark">Benchmark</a>
-        <a href="#evaluation">Evaluation</a>
+        <a href="#abstract">Abstract</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#related-work">Related Work</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#method">Method</a>
         <a href="#leaderboard">Leaderboard</a>
-        <a href="#findings">Findings</a>
         <a href="#resources">Resources</a>
         <a href="#bibtex">BibTeX</a>
         <a href="#contact">Contact</a>
@@ -814,315 +729,428 @@
     </div>
   </header>
 
-  <div class="hero-wrap">
+  <!-- MMMU-like centered hero -->
+  <div class="hero-wrap" id="top">
     <div class="hero">
-      <div class="kicker">Grounded Evaluation · Citation Discipline · Multimodal Evidence</div>
+      <div class="container is-max-desktop has-text-centered">
+        <div class="kicker">Grounded Evaluation · Citation Discipline · Multimodal Evidence</div>
 
-      <h1 class="title">MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents</h1>
+        <h1 class="pub-title">
+          MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents
+        </h1>
 
-      <p class="subtitle">
-        A benchmark of expert-crafted multimodal deep-research tasks, plus a unified evaluation pipeline for
-        long-form, citation-grounded reports.
-      </p>
+        <p class="pub-subtitle">
+          A benchmark of expert-crafted multimodal deep-research tasks, plus a unified evaluation pipeline for long-form,
+          citation-grounded reports.
+        </p>
 
-      <p class="authors">
-        <strong>Anonymous ACL submission</strong> (replace with authors / affiliation if public).
-      </p>
+        <p class="pub-authors">
+          <strong>Anonymous ACL submission</strong> (replace with authors / affiliations when public).
+        </p>
 
-      <div class="actions">
-        <a class="btn primary" href="paper.pdf" target="_blank" rel="noopener">📄 Paper (PDF)</a>
-        <a class="btn" href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io" target="_blank" rel="noopener">⭐ GitHub</a>
-        <a class="btn" href="#resources">🧩 Dataset & Code</a>
-        <a class="btn" href="#evaluation">🧪 Evaluation Pipeline</a>
+        <div class="publication-links">
+          <a class="button" href="paper.pdf" target="_blank" rel="noopener">
+            <span class="icon">📄</span><span>Paper</span>
+          </a>
+          <a class="button" href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io" target="_blank" rel="noopener">
+            <span class="icon">⭐</span><span>Code</span>
+          </a>
+          <a class="button" href="#dataset">
+            <span class="icon">🧩</span><span>Dataset</span>
+          </a>
+          <a class="button" href="#leaderboard">
+            <span class="icon">🏆</span><span>Leaderboard</span>
+          </a>
+        </div>
+
+        <div class="meta-row">
+          <span class="badge">140 tasks</span>
+          <span class="badge">21 domains</span>
+          <span class="badge">Image–Text bundles</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <section id="overview">
-    <h2>Overview</h2>
-    <p class="muted">
-      Deep Research Agents produce long-form reports with citations, but existing benchmarks often miss end-to-end
-      multimodal evidence use. MMDR-Bench evaluates multimodal understanding + citation-grounded report generation.
-    </p>
-
-    <div class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 4;">
-        <span class="badge">Benchmark scale</span>
-        <div class="stat">140</div>
-        <div class="muted">expert-crafted tasks</div>
+  <!-- Abstract -->
+  <section id="abstract">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Abstract</h2>
+      <div class="content has-text-justified">
+        <p class="muted">
+          Deep Research Agents (DRAs) generate citation-rich reports via multi-step search and synthesis, yet existing
+          benchmarks mainly target text-only settings or short-form multimodal Question-and-Answering, missing end-to-end
+          multimodal evidence use. We introduce MMDeepResearch-Bench (MMDR-Bench), a benchmark of 140 expert-crafted tasks
+          across 21 domains, where each task provides an image–text bundle to evaluate multimodal understanding and
+          citation-grounded report generation. We further propose a unified, interpretable evaluation pipeline: FLAE
+          (Formula–LLM Adaptive Evaluation), a formula–LLM hybrid combining reproducible text features with task-adaptive
+          judging for report quality; TRACE (Trustworthy Retrieval-Aligned Citation Evaluation), which verifies Claim–URL
+          support and enforces multimodal prompt faithfulness via visual evidence fidelity; and MOSAIC (Multimodal
+          Support-Aligned Integrity Check), which checks integrity between visual-referenced statements and visual
+          artifacts. Experiments on 25 state-of-the-art models reveal clear trade-offs between generation quality and
+          multimodal grounding. A human study shows strong alignment with expert judgments. MMDR-Bench and the associated
+          evaluation framework will be publicly available after acceptance.
+        </p>
       </div>
-      <div class="card" style="grid-column: span 4;">
-        <span class="badge">Coverage</span>
-        <div class="stat">21</div>
-        <div class="muted">domains</div>
-      </div>
-      <div class="card" style="grid-column: span 4;">
-        <span class="badge">Core idea</span>
-        <div class="stat" style="font-size:20px;">Image–Text Bundles</div>
-        <div class="muted">Multimodal evidence is necessary and verifiable.</div>
-      </div>
-    </div>
-
-    <div class="figure-card" style="margin-top:16px;">
-      <figure>
-        <div class="figure-media">
-          <img class="paper-fig intro" src="assets/introdanlan.png" alt="MMDR-Bench overview teaser" />
-        </div>
-        <figcaption>
-          Teaser / benchmark overview (from the paper). <a href="assets/introdanlan.png" target="_blank" rel="noopener">Open full-size</a>.
-        </figcaption>
-      </figure>
     </div>
   </section>
 
-  <section id="benchmark">
-    <h2>Benchmark</h2>
+  <!-- Introduction -->
+  <section id="introduction">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Introduction</h2>
 
-    <div class="grid">
-      <div class="card" style="grid-column: span 6;">
-        <h3>Two task regimes</h3>
+      <div class="content has-text-justified">
         <p class="muted">
-          Daily tasks reflect everyday deep-research workflows driven by loosely structured visuals
-          (screenshots, photos, user interfaces). Research tasks target analysis-heavy settings.
+          Deep Research Agents increasingly operate over heterogeneous evidence (web pages, charts, tables, screenshots).
+          MMDR-Bench targets end-to-end multimodal deep-research: agents must interpret task images, browse to gather
+          supporting sources, and write long-form reports with verifiable citations while remaining faithful to visual evidence.
         </p>
-        <div class="grid" style="margin-top:10px;">
-          <div class="card" style="grid-column: span 6; box-shadow:none; background:var(--soft);">
-            <div class="badge">Daily</div>
-            <div class="stat" style="font-size:22px;">40 tasks · 11 domains</div>
-            <div class="muted2">Lightweight but verifiable evidence use.</div>
+
+        <p class="muted">
+          MMDR-Bench adds three missing pieces: <strong>(1) multimodal task instances</strong> packaged as image–text bundles,
+          <strong>(2) report-level evaluation</strong> that enforces claim–URL verifiability, and
+          <strong>(3) explicit prompt-faithfulness checks</strong> tied to visual requirements.
+        </p>
+      </div>
+
+      <div class="figure-card" style="margin-top:16px;">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig intro" src="assets/introdanlan.png"
+                 alt="MMDR-Bench evaluates multimodal deep research abilities at integrated and atomic levels (placeholder intro figure)" />
           </div>
-          <div class="card" style="grid-column: span 6; box-shadow:none; background:var(--soft);">
-            <div class="badge">Research</div>
-            <div class="stat" style="font-size:22px;">100 tasks · 10 domains</div>
-            <div class="muted2">Long-form analysis with multimodal evidence.</div>
+          <figcaption>
+            Figure 1: MMDR-Bench evaluates multimodal deep research at integrated and atomic levels.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="figure-card" style="margin-top:16px;">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig intro" src="assets/bar_plot.svg" alt="Overall results teaser / bar plot" />
+          </div>
+          <figcaption>
+            Overall MMDR score summary (from the paper). <a href="assets/bar_plot.svg" target="_blank" rel="noopener">Open full-size</a>.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Work -->
+  <section id="related-work">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Related Work</h2>
+
+      <div class="grid" style="margin-top:10px;">
+        <div class="card" style="grid-column: span 4;">
+          <h3>Deep Search & Agentic Reasoning</h3>
+          <p class="muted">
+            Work on agentic search decomposes complex queries into multi-step retrieval and synthesis, but evaluation often
+            relies on final-answer accuracy and can miss report-level evidence failures.
+          </p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <h3>Multimodal Search & Reasoning</h3>
+          <p class="muted">
+            Multimodal benchmarks test perception and localized reasoning, but typically do not enforce long-form citation
+            discipline tied to visual evidence.
+          </p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <h3>Benchmarks & Evaluation</h3>
+          <p class="muted">
+            Prior deep-research benchmarks study report writing; MMDR-Bench targets the intersection: multimodal evidence
+            use with verifiable, citation-grounded reports.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset band (MMMU-like separator) -->
+  <div class="band">
+    <div class="band-inner">
+      <h1 class="band-title">MMDR-Bench Benchmark</h1>
+    </div>
+  </div>
+
+  <!-- Dataset -->
+  <section id="dataset">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Dataset</h2>
+
+      <div class="content has-text-justified">
+        <p class="muted">
+          MMDR-Bench includes two complementary regimes reflecting everyday workflows and analysis-heavy research settings.
+          The benchmark evaluates multimodal task understanding, citation-grounded reasoning, and long-form synthesis under
+          prompt-faithfulness constraints to task-provided images.
+        </p>
+
+        <p class="muted">
+          <strong>Daily:</strong> 40 tasks across 11 domains, featuring screenshots, photos, and UI captures.
+          <strong>Research:</strong> 100 tasks across 10 domains, featuring charts, tables, and diagrams that require longer synthesis.
+        </p>
+
+        <p class="muted">
+          What is evaluated: <strong>(1) visually grounded planning</strong>, <strong>(2) claim–URL support</strong>, and
+          <strong>(3) integrity between image-referenced statements and visual artifacts</strong>.
+        </p>
+      </div>
+
+      <div class="grid" style="margin-top:16px;">
+        <div style="grid-column: span 6;">
+          <div class="figure-card">
+            <figure>
+              <div class="figure-media">
+                <img class="paper-fig" src="assets/distribution.svg" alt="Task distribution (placeholder)" />
+              </div>
+              <figcaption>Figure: Task distribution of MMDR-Bench.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div style="grid-column: span 6;">
+          <div class="figure-card">
+            <figure>
+              <div class="figure-media">
+                <img class="paper-fig" src="assets/datasamples.svg" alt="Example tasks (placeholder)" />
+              </div>
+              <figcaption>Figure: Two example tasks from MMDR-Bench.</figcaption>
+            </figure>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="card" style="grid-column: span 6;">
-        <h3>What is evaluated</h3>
+  <!-- Method -->
+  <section id="method">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Evaluation Method</h2>
+
+      <div class="content has-text-justified">
         <p class="muted">
-          Beyond short-form QA: agents must plan, retrieve, cite, and synthesize long-form reports—while staying faithful
-          to visual evidence.
+          We use a unified, interpretable 3-stage pipeline combining report quality, citation support, and image-grounded integrity:
+          <strong>FLAE</strong>, <strong>TRACE</strong>, and a gated <strong>MOSAIC</strong> stage.
         </p>
-        <ul class="muted" style="margin: 10px 0 0 18px;">
-          <li>Multimodal task understanding & visually grounded planning</li>
-          <li>Citation-grounded reasoning (claim–URL support)</li>
-          <li>Long-form report synthesis with evidence discipline</li>
-        </ul>
+      </div>
+
+      <div class="grid" style="margin-top:14px;">
+        <div class="card" style="grid-column: span 4;">
+          <h3>FLAE</h3>
+          <p class="muted">
+            Formula–LLM hybrid: reproducible text features + task-aware judging, fused with an adaptive coefficient.
+          </p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <h3>TRACE</h3>
+          <p class="muted">
+            Verifies claim–URL support and enforces multimodal prompt faithfulness via visual evidence fidelity.
+          </p>
+        </div>
+        <div class="card" style="grid-column: span 4;">
+          <h3>MOSAIC (Gated)</h3>
+          <p class="muted">
+            Checks integrity between visual-referenced statements and visual artifacts; activated only when earlier stages are scorable.
+          </p>
+        </div>
+      </div>
+
+      <div class="figure-card" style="margin-top:16px;">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig pipeline" src="assets/pipeline.png" alt="MMDR-Bench evaluation pipeline" />
+          </div>
+          <figcaption>
+            Evaluation pipeline (from the paper). <a href="assets/pipeline.png" target="_blank" rel="noopener">Open full-size</a>.
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
-  <section id="evaluation">
-    <h2>Evaluation pipeline</h2>
-    <p class="muted">
-      A unified, interpretable 3-stage pipeline combining report quality, citation support, and image-grounded integrity:
-      <strong>FLAE</strong>, <strong>TRACE</strong>, and a gated <strong>MOSAIC</strong> stage.
-    </p>
+  <!-- Results band -->
+  <div class="band">
+    <div class="band-inner">
+      <h1 class="band-title">Experiment Results</h1>
+    </div>
+  </div>
 
-    <div class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 4;">
-        <h3>FLAE</h3>
+  <!-- Experiments -->
+  <section id="experiments">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Experiments</h2>
+
+      <div class="content has-text-justified">
         <p class="muted">
-          Formula–LLM hybrid: reproducible text features + task-aware judging, fused with an adaptive coefficient.
+          Results highlight cross-metric trade-offs between writing quality, citation discipline, and multimodal grounding.
+          Use the interactive leaderboard to sort and compare systems.
         </p>
       </div>
-      <div class="card" style="grid-column: span 4;">
-        <h3>TRACE</h3>
+
+      <h3 id="leaderboard" style="margin-top:10px;">Leaderboard</h3>
+      <div class="leaderboard-container">
+        <div class="leaderboard-header">
+          <h3>🏆 Model Rankings</h3>
+          <p>Overall and per-metric results across evaluated models</p>
+        </div>
+
+        <div class="controls">
+          <div class="filter-group">
+            <label style="font-weight: 600; font-size: 13px;">Category:</label>
+            <button class="filter-btn active" data-filter="all">All Models</button>
+            <button class="filter-btn" data-filter="single">Single-Modal</button>
+            <button class="filter-btn" data-filter="multimodal">Multimodal</button>
+            <button class="filter-btn" data-filter="agent">Deep Research</button>
+          </div>
+
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search models...">
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="leaderboard-table" id="leaderboardTable">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="model">Model</th>
+                <th class="sortable" data-sort="overall">Overall</th>
+                <th class="metric-group sortable" data-sort="read" title="Readability">Read.</th>
+                <th class="sortable" data-sort="insh" title="Insightfulness">Insh.</th>
+                <th class="sortable" data-sort="stru" title="Structure">Stru.</th>
+                <th class="metric-group sortable" data-sort="vef" title="Visual Evidence Fidelity">Vef.</th>
+                <th class="sortable" data-sort="con" title="Consistency">Con.</th>
+                <th class="sortable" data-sort="cov" title="Coverage">Cov.</th>
+                <th class="sortable" data-sort="fid" title="Fidelity">Fid.</th>
+                <th class="metric-group sortable" data-sort="sem" title="Semantic">Sem.</th>
+                <th class="sortable" data-sort="acc" title="Accuracy">Acc.</th>
+                <th class="sortable" data-sort="vqa" title="VQA">VQA</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 style="margin-top:26px;">Key Findings</h3>
+      <div class="content has-text-justified">
         <p class="muted">
-          Verifies claim–URL support and enforces multimodal prompt faithfulness via visual evidence fidelity.
+          <strong>Vision helps only when it is reliable as evidence.</strong> Noisy or auxiliary visuals can seed incorrect premises that propagate through retrieval and synthesis.
+        </p>
+        <p class="muted">
+          <strong>Multimodal alignment and citation grounding can diverge.</strong> Better visual grounding does not automatically imply stronger claim–URL support.
+        </p>
+        <p class="muted">
+          <strong>Tool use helps, but strong backbones and richer retrieval matter most.</strong> Agents can amplify backbones, but cannot replace them.
         </p>
       </div>
-      <div class="card" style="grid-column: span 4;">
-        <h3>MOSAIC (Gated)</h3>
+
+      <div class="figure-card" style="margin-top:14px;">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig" src="assets/unified_failure_analysis.svg" alt="Optional figure (placeholder)" />
+          </div>
+          <figcaption>Optional: main analysis snapshot.</figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin-top:26px;">Conclusion</h3>
+      <div class="content has-text-justified">
         <p class="muted">
-          Checks integrity between visual-referenced statements and visual artifacts; activated only when earlier stages pass thresholds.
+          MMDR-Bench targets end-to-end multimodal deep research by pairing image–text tasks with a unified evaluation
+          pipeline that measures report quality, citation-grounded faithfulness, and text–visual integrity. Results across
+          diverse systems show persistent trade-offs between writing quality, citation discipline, and multimodal grounding.
         </p>
-      </div>
-    </div>
-
-    <div class="figure-card" style="margin-top:16px;">
-      <figure>
-        <div class="figure-media">
-          <img class="paper-fig pipeline" src="assets/pipeline.png" alt="MMDR-Bench evaluation pipeline" />
-        </div>
-        <figcaption>
-          MMDR-Bench evaluation pipeline (from the paper). <a href="assets/pipeline.png" target="_blank" rel="noopener">Open full-size</a>.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="leaderboard">
-    <h2>Leaderboard</h2>
-    <p class="muted">
-      Interactive leaderboard showing overall and per-metric performance across all evaluated models.
-      Click column headers to sort, use filters to explore different categories.
-    </p>
-
-    <div class="leaderboard-container">
-      <div class="leaderboard-header">
-        <h3>🏆 Model Rankings</h3>
-        <p>Comprehensive evaluation results for multimodal deep research agents</p>
-      </div>
-      
-      <div class="controls">
-        <div class="filter-group">
-          <label style="font-weight: 500; font-size: 13px;">Category:</label>
-          <button class="filter-btn active" data-filter="all">All Models</button>
-          <button class="filter-btn" data-filter="single">Single-Modal</button>
-          <button class="filter-btn" data-filter="multimodal">Multimodal</button>
-          <button class="filter-btn" data-filter="agent">Deep Research</button>
-        </div>
-        
-        <div class="search-box">
-          <input type="text" id="searchInput" placeholder="Search models...">
-        </div>
-      </div>
-      
-      <div class="table-container">
-        <table class="leaderboard-table" id="leaderboardTable">
-          <thead>
-            <tr>
-              <th class="sortable" data-sort="rank">Rank</th>
-              <th class="sortable" data-sort="model">Model</th>
-              <th class="sortable" data-sort="overall">Overall</th>
-              <th class="metric-group sortable" data-sort="read" title="Readability">Read.</th>
-              <th class="sortable" data-sort="insh" title="Insightfulness">Insh.</th>
-              <th class="sortable" data-sort="stru" title="Structure">Stru.</th>
-              <th class="metric-group sortable" data-sort="vef" title="Visual Evidence Fidelity">Vef.</th>
-              <th class="sortable" data-sort="con" title="Consistency">Con.</th>
-              <th class="sortable" data-sort="cov" title="Coverage">Cov.</th>
-              <th class="sortable" data-sort="fid" title="Fidelity">Fid.</th>
-              <th class="metric-group sortable" data-sort="sem" title="Semantic">Sem.</th>
-              <th class="sortable" data-sort="acc" title="Accuracy">Acc.</th>
-              <th class="sortable" data-sort="vqa" title="VQA">VQA</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section id="findings">
-    <h2>Key results & findings</h2>
-    <p class="muted">
-      Main experiments evaluate a diverse set of models and deep research agents; results highlight cross-metric trade-offs
-      between writing quality, citation discipline, and multimodal grounding.
-    </p>
-
-    <div class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 7;">
-        <h3>Highlighted observations</h3>
-        <ul class="muted" style="margin: 10px 0 0 18px;">
-          <li><strong>Clear trade-offs</strong> between generation quality and multimodal grounding.</li>
-          <li>Top-ranked system is driven by strong evidence quality while keeping competitive multimodal alignment.</li>
-          <li>Even strong models can diverge: better visual grounding does not guarantee better citation discipline.</li>
-        </ul>
-      </div>
-
-      <div class="card" style="grid-column: span 5;">
-        <h3>Figure / table (optional)</h3>
-        <p class="muted2">Export a "main results" figure/table from the PDF and place it here.</p>
-        <div class="figure-card" style="margin-top:10px;">
-          <figure>
-            <div class="figure-media">
-              <img class="paper-fig" src="assets/fig_results.png" alt="Main results (optional)" />
-            </div>
-            <figcaption>Optional: main results snapshot.</figcaption>
-          </figure>
-        </div>
       </div>
     </div>
   </section>
 
+  <!-- Resources -->
   <section id="resources">
-    <h2>Resources</h2>
-    <div class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 6;">
-        <h3>Code</h3>
-        <p class="muted">
-          Add links to the evaluation code / scripts here when ready.
-        </p>
-        <p class="muted2">
-          Suggested: <code>https://github.com/MMDeepResearch-Bench/MMDR-Bench</code> (replace with your actual repo).
-        </p>
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Resources</h2>
+
+      <div class="grid" style="margin-top:14px;">
+        <div class="card" style="grid-column: span 6;">
+          <h3>Code</h3>
+          <p class="muted">Add links to evaluation code / scripts here when ready.</p>
+          <p class="muted2">Suggested: <code>https://github.com/MMDeepResearch-Bench/MMDR-Bench</code> (replace with your actual repo).</p>
+        </div>
+
+        <div class="card" style="grid-column: span 6;">
+          <h3>Dataset release note</h3>
+          <p class="muted">
+            If you cannot redistribute raw images, you can still host task text + stable identifiers + derived annotations.
+          </p>
+          <p class="muted2">
+            Put downloadable files under <code>assets/</code> (e.g., <code>assets/tasks.json</code>) and link them here.
+          </p>
+        </div>
       </div>
 
-      <div class="card" style="grid-column: span 6;">
-        <h3>Dataset release note</h3>
-        <p class="muted">
-          If you can't redistribute raw images, you can still host task text + stable identifiers + derived annotations.
-        </p>
-        <p class="muted2">
-          Put downloadable files under <code>assets/</code> (e.g., <code>assets/tasks.json</code>) and link them here.
-        </p>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:14px; position: relative;">
-      <h3 style="margin-bottom:10px;">Quick start (placeholder)</h3>
-      <pre><code># Replace with your actual usage once code is public
+      <div class="card" style="margin-top:14px; position: relative;">
+        <h3 style="margin-bottom:10px;">Quick start (placeholder)</h3>
+        <pre><code># Replace with your actual usage once code is public
 # git clone &lt;your-repo&gt;
 # cd &lt;your-repo&gt;
 # python eval.py --help</code></pre>
+      </div>
     </div>
   </section>
 
+  <!-- BibTeX -->
   <section id="bibtex">
-  <h2>BibTeX</h2>
-  <div class="card" style="position: relative;">
-    <button class="copy" onclick="
-      const t = document.getElementById('bib').innerText;
-      navigator.clipboard.writeText(t).then(()=>{
-        this.textContent='Copied';
-        setTimeout(()=>this.textContent='Copy',1200);
-      });
-    ">Copy</button>
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">BibTeX</h2>
+      <div class="card" style="position: relative;">
+        <button class="copy" onclick="
+          const t = document.getElementById('bib').innerText;
+          navigator.clipboard.writeText(t).then(()=>{
+            this.textContent='Copied';
+            setTimeout(()=>this.textContent='Copy',1200);
+          });
+        ">Copy</button>
 
-    <pre id="bib"><code>@article{MMDRBench,
+        <pre id="bib"><code>@article{MMDRBench,
   title   = {MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents},
   author  = {Anonymous},
   journal = {arXiv / ACL submission},
   year    = {2026},
   note    = {Update this BibTeX when public}
 }</code></pre>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="grid" style="margin-top:14px;">
-    <div class="card" style="grid-column: span 6;">
-      <h3>Maintainers</h3>
-      <p class="muted">
-        Add maintainer names / lab / affiliations here.
-      </p>
+      </div>
     </div>
-    <div class="card" style="grid-column: span 6;">
-      <h3>Email</h3>
-      <p class="muted">
-        contact@example.com
-      </p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="footer-inner">
-    <div>© 2026 MMDR-Bench</div>
-    <div class="muted2">
-      <a href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io"
-         target="_blank" rel="noopener">
-        GitHub Pages
-      </a>
-    </div>
-  </div>
-</footer>
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Contact</h2>
 
+      <div class="grid" style="margin-top:14px;">
+        <div class="card" style="grid-column: span 6;">
+          <h3>Maintainers</h3>
+          <p class="muted">Add maintainer names / lab / affiliations here.</p>
+        </div>
+        <div class="card" style="grid-column: span 6;">
+          <h3>Email</h3>
+          <p class="muted">contact@example.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 MMDR-Bench</div>
+      <div class="muted2">
+        <a href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io"
+           target="_blank" rel="noopener">GitHub Pages</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
-
