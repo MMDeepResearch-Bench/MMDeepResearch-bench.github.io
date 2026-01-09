@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MMDeepResearch-Bench (MMDR-Bench)</title>
+  <meta name="description" content="Grounded evaluation and alignment for multimodal deep research agents." />
+
+  <!-- Fonts (MMMU-like: clean + academic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --fg: #0f172a;
+      --muted: #475569;
+      --muted2:#64748b;
+      --border:#e2e8f0;
+      --card:#ffffff;
+      --soft:#f8fafc;
+      --accent:#4f46e5;     /* indigo */
+      --accent2:#06b6d4;    /* cyan */
+      --shadow: 0 12px 28px rgba(2, 6, 23, .08);
+      --radius: 14px;
+      --max: 1120px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Inter, "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background: var(--bg);
+      line-height:1.65;
+    }
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ color: var(--accent); text-decoration: underline; }
+
+    /* Top bar */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .pill{
+      font-size: 12px;
+      color: var(--muted2);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(248,250,252,.7);
+    }
+    .navlinks{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items:center;
+      justify-content:flex-end;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .lang{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      border-left: 1px solid var(--border);
+      padding-left: 12px;
+      margin-left: 4px;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .lang a{ text-decoration:none; }
+    .lang .active{ color: var(--fg); font-weight: 600; }
+
+    /* Layout helpers */
+    section{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 42px 18px;
+    }
+    h2{
+      font-size: 26px;
+      margin: 0 0 14px;
+      letter-spacing: -.2px;
+    }
+    p{ margin: 0 0 14px; color: var(--fg); }
+    .muted{ color: var(--muted); }
+    .muted2{ color: var(--muted2); }
+
+    /* Hero */
+    .hero-wrap{
+      background:
+        radial-gradient(900px 260px at 15% 0%, rgba(79,70,229,.10), transparent 60%),
+        radial-gradient(900px 260px at 85% 0%, rgba(6,182,212,.10), transparent 60%),
+        linear-gradient(180deg, var(--soft), #ffffff 55%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 56px 18px 42px;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted2);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .title{
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.08;
+      margin: 10px 0 12px;
+      letter-spacing: -.02em;
+    }
+    .subtitle{
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+    .authors{
+      color: var(--muted2);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+    .actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--fg);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 1px 0 rgba(2,6,23,.04);
+    }
+    .btn.primary{
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(79,70,229,.18);
+    }
+    .btn:hover{ text-decoration:none; filter: brightness(1.02); }
+
+    /* Cards */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 16px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.2px;
+    }
+    .stat{
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin: 4px 0 2px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(248,250,252,.85);
+      color: var(--muted);
+    }
+
+    /* Figures */
+    figure{
+      margin: 0;
+    }
+    .figure-card{
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      overflow:hidden;
+    }
+    .figure-card img{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background:#fff;
+    }
+    figcaption{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    /* Code block / BibTeX */
+    pre{
+      margin: 0;
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 14px 14px;
+      border-radius: 12px;
+      overflow-x:auto;
+      border: 1px solid rgba(148,163,184,.25);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .copy{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-weight: 700;
+      cursor:pointer;
+      font-size: 12px;
+    }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      padding: 28px 18px;
+      color: var(--muted2);
+    }
+    .footer-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 880px){
+      .navlinks{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span>MMDR-Bench</span>
+        <span class="pill">MMDeepResearch-Bench</span>
+      </div>
+
+      <div class="navlinks">
+        <a href="#overview">Overview</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#findings">Findings</a>
+        <a href="#resources">Resources</a>
+        <a href="#bibtex">BibTeX</a>
+        <a href="#contact">Contact</a>
+        <span class="lang">
+          <span class="active">EN</span>
+          <span class="muted2">|</span>
+          <a href="index_cn.html">中</a>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero-wrap">
+    <div class="hero">
+      <div class="kicker">Grounded Evaluation · Citation Discipline · Multimodal Evidence</div>
+
+      <h1 class="title">MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents</h1>
+
+      <p class="subtitle">
+        A benchmark of expert-crafted multimodal deep-research tasks, plus a unified evaluation pipeline for
+        long-form, citation-grounded reports.
+      </p>
+
+      <p class="authors">
+        <strong>Anonymous ACL submission</strong> (replace with authors / affiliation if public).
+      </p>
+
+      <div class="actions">
+        <a class="btn primary" href="paper.pdf" target="_blank" rel="noopener">📄 Paper (PDF)</a>
+        <a class="btn" href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io" target="_blank" rel="noopener">⭐ GitHub</a>
+        <a class="btn" href="#resources">🧩 Dataset & Code</a>
+        <a class="btn" href="#evaluation">🧪 Evaluation Pipeline</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p class="muted">
+      Deep Research Agents produce long-form reports with citations, but existing benchmarks often miss end-to-end
+      multimodal evidence use. MMDR-Bench evaluates multimodal understanding + citation-grounded report generation.
+    </p>
+
+    <div class="grid" style="margin-top:14px;">
+      <div class="card" style="grid-column: span 4;">
+        <span class="badge">Benchmark scale</span>
+        <div class="stat">140</div>
+        <div class="muted">expert-crafted tasks</div>
+      </div>
+      <div class="card" style="grid-column: span 4;">
+        <span class="badge">Coverage</span>
+        <div class="stat">21</div>
+        <div class="muted">domains</div>
+      </div>
+      <div class="card" style="grid-column: span 4;">
+        <span class="badge">Core idea</span>
+        <div class="stat" style="font-size:20px;">Image–Text Bundles</div>
+        <div class="muted">Multimodal evidence is necessary and verifiable.</div>
+      </div>
+    </div>
+
+    <div class="figure-card" style="margin-top:16px;">
+      <figure>
+        <img src="assets/fig_teaser.png" alt="Teaser figure (export from paper)" />
+        <figcaption>
+          Teaser / benchmark overview. Replace <code>assets/fig_teaser.png</code> with an exported figure from your PDF.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="benchmark">
+    <h2>Benchmark</h2>
+
+    <div class="grid">
+      <div class="card" style="grid-column: span 6;">
+        <h3>Two task regimes</h3>
+        <p class="muted">
+          Daily tasks reflect everyday deep-research workflows driven by loosely structured visuals
+          (screenshots, photos, user interfaces). Research tasks target analysis-heavy settings.
+        </p>
+        <div class="grid" style="margin-top:10px;">
+          <div class="card" style="grid-column: span 6; box-shadow:none; background:var(--soft);">
+            <div class="badge">Daily</div>
+            <div class="stat" style="font-size:22px;">40 tasks · 11 domains</div>
+            <div class="muted2">Lightweight but verifiable evidence use.</div>
+          </div>
+          <div class="card" style="grid-column: span 6; box-shadow:none; background:var(--soft);">
+            <div class="badge">Research</div>
+            <div class="stat" style="font-size:22px;">100 tasks · 10 domains</div>
+            <div class="muted2">Long-form analysis with multimodal evidence.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column: span 6;">
+        <h3>What is evaluated</h3>
+        <p class="muted">
+          Beyond short-form QA: agents must plan, retrieve, cite, and synthesize long-form reports—while staying faithful
+          to visual evidence.
+        </p>
+        <ul class="muted" style="margin: 10px 0 0 18px;">
+          <li>Multimodal task understanding & visually grounded planning</li>
+          <li>Citation-grounded reasoning (claim–URL support)</li>
+          <li>Long-form report synthesis with evidence discipline</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="evaluation">
+    <h2>Evaluation pipeline</h2>
+    <p class="muted">
+      A unified, interpretable 3-stage pipeline combining report quality, citation support, and image-grounded integrity:
+      <strong>FLAE</strong>, <strong>TRACE</strong>, and a gated <strong>MOSAIC</strong> stage.
+    </p>
+
+    <div class="grid" style="margin-top:14px;">
+      <div class="card" style="grid-column: span 4;">
+        <h3>FLAE</h3>
+        <p class="muted">
+          Formula–LLM hybrid: reproducible text features + task-aware judging, fused with an adaptive coefficient.
+        </p>
+      </div>
+      <div class="card" style="grid-column: span 4;">
+        <h3>TRACE</h3>
+        <p class="muted">
+          Verifies claim–URL support and enforces multimodal prompt faithfulness via visual evidence fidelity.
+        </p>
+      </div>
+      <div class="card" style="grid-column: span 4;">
+        <h3>MOSAIC (Gated)</h3>
+        <p class="muted">
+          Checks integrity between visual-referenced statements and visual artifacts; activated only when earlier stages pass thresholds.
+        </p>
+      </div>
+    </div>
+
+    <div class="figure-card" style="margin-top:16px;">
+      <figure>
+        <img src="assets/fig_pipeline.png" alt="MMDR-Bench evaluation pipeline (export Fig. 5 from paper)" />
+        <figcaption>
+          MMDR-Bench evaluation pipeline (export Fig. 5). Put it at <code>assets/fig_pipeline.png</code>.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="findings">
+    <h2>Key results & findings</h2>
+    <p class="muted">
+      Main experiments evaluate a diverse set of models and deep research agents; results highlight cross-metric trade-offs
+      between writing quality, citation discipline, and multimodal grounding.
+    </p>
+
+    <div class="grid" style="margin-top:14px;">
+      <div class="card" style="grid-column: span 7;">
+        <h3>Highlighted observations</h3>
+        <ul class="muted" style="margin: 10px 0 0 18px;">
+          <li><strong>Clear trade-offs</strong> between generation quality and multimodal grounding.</li>
+          <li>Top-ranked system is driven by strong evidence quality while keeping competitive multimodal alignment.</li>
+          <li>Even strong models can diverge: better visual grounding does not guarantee better citation discipline.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="grid-column: span 5;">
+        <h3>Figure / table (optional)</h3>
+        <p class="muted2">Export a “main results” figure/table from the PDF and place it here.</p>
+        <div class="figure-card" style="margin-top:10px;">
+          <figure>
+            <img src="assets/fig_results.png" alt="Main results (optional)" />
+            <figcaption>Optional: main results snapshot.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resources">
+    <h2>Resources</h2>
+    <div class="grid" style="margin-top:14px;">
+      <div class="card" style="grid-column: span 6;">
+        <h3>Code</h3>
+        <p class="muted">
+          Add links to the evaluation code / scripts here when ready.
+        </p>
+        <p class="muted2">
+          Suggested: <code>https://github.com/MMDeepResearch-Bench/MMDR-Bench</code> (replace with your actual repo).
+        </p>
+      </div>
+
+      <div class="card" style="grid-column: span 6;">
+        <h3>Dataset release note</h3>
+        <p class="muted">
+          If you can’t redistribute raw images, you can still host task text + stable identifiers + derived annotations.
+        </p>
+        <p class="muted2">
+          Put downloadable files under <code>assets/</code> (e.g., <code>assets/tasks.json</code>) and link them here.
+        </p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px; position: relative;">
+      <h3 style="margin-bottom:10px;">Quick start (placeholder)</h3>
+      <pre><code># Replace with your actual usage once code is public
+# git clone &lt;your-repo&gt;
+# cd &lt;your-repo&gt;
+# python eval.py --help</code></pre>
+    </div>
+  </section>
+
+  <section id="bibtex">
+    <h2>BibTeX</h2>
+    <div class="card" style="position: relative;">
+      <button class="copy" onclick="
+        const t = document.getElementById('bib').innerText;
+        navigator.clipboard.writeText(t).then(()=>{ this.textContent='Copied'; setTimeout(()=>this.textContent='Copy',1200); });
+      ">Copy</button>
+
+      <pre id="bib"><code>@article{MMDRBench,
+  title   = {MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents},
+  author  = {Anonymous},
+  journal = {arXiv / ACL submission},
+  year    = {2026},
+  note    = {Update this BibTeX when public}
+}</code></pre>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="grid" style="margin-top:14px;">
+      <div class="card" style="grid-column: span 6;">
+        <h3>Maintainers</h3>
+        <p class="muted">Add maintainer names / lab / affiliations here.</p>
+      </div>
+      <div class="card" style="grid-column: span 6;">
+        <h3>Email</h3>
+        <p class="muted">contact@example.com</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 MMDR-Bench</div>
+      <div class="muted2">
+        <a href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io" target="_blank" rel="noopener">GitHub Pages</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
