@@ -577,17 +577,14 @@
   //   DATA = await r.json();
   // }
 
-  const tableBody = document.getElementById("tableBody");
-  const searchInput = document.getElementById("searchInput");
-  const filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
-  const ths = Array.from(document.querySelectorAll("th.sortable"));
-
   let state = {
     filter: "all",
     query: "",
     sortKey: "overall",
     sortDir: "desc"
   };
+
+  let tableBody, searchInput, filterBtns, ths;
 
   function safeNum(x) {
     const n = Number(x);
@@ -640,6 +637,8 @@
   }
 
   function render() {
+    if (!tableBody) return;
+    
     const rows = getFiltered();
     computeRanks(rows);
     const sorted = sortRows([...rows]);
@@ -669,6 +668,7 @@
   }
 
   function setSortHeaderUI() {
+    if (!ths) return;
     ths.forEach(th => th.classList.remove("sort-asc", "sort-desc"));
     const active = ths.find(th => th.dataset.sort === state.sortKey);
     if (active) active.classList.add(state.sortDir === "asc" ? "sort-asc" : "sort-desc");
@@ -676,14 +676,16 @@
 
   function bind() {
     // filters
-    filterBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filterBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        state.filter = btn.dataset.filter || "all";
-        render();
+    if (filterBtns && filterBtns.length > 0) {
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          state.filter = btn.dataset.filter || "all";
+          render();
+        });
       });
-    });
+    }
 
     // search
     if (searchInput) {
@@ -694,26 +696,34 @@
     }
 
     // sort
-    ths.forEach(th => {
-      th.addEventListener("click", () => {
-        const key = th.dataset.sort;
-        if (!key) return;
+    if (ths && ths.length > 0) {
+      ths.forEach(th => {
+        th.addEventListener("click", () => {
+          const key = th.dataset.sort;
+          if (!key) return;
 
-        if (state.sortKey === key) {
-          state.sortDir = (state.sortDir === "asc") ? "desc" : "asc";
-        } else {
-          state.sortKey = key;
-          state.sortDir = (key === "model" || key === "rank") ? "asc" : "desc";
-        }
-        setSortHeaderUI();
-        render();
+          if (state.sortKey === key) {
+            state.sortDir = (state.sortDir === "asc") ? "desc" : "asc";
+          } else {
+            state.sortKey = key;
+            state.sortDir = (key === "model" || key === "rank") ? "asc" : "desc";
+          }
+          setSortHeaderUI();
+          render();
+        });
       });
-    });
+    }
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
     // 如果你用方案 B 加载 JSON，就在这里 await loadData()
     // try { await loadData(); } catch(e){ console.warn(e); }
+
+    // 在DOM加载完成后获取元素
+    tableBody = document.getElementById("tableBody");
+    searchInput = document.getElementById("searchInput");
+    filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
+    ths = Array.from(document.querySelectorAll("th.sortable"));
 
     bind();
     setSortHeaderUI();
