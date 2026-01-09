@@ -531,6 +531,167 @@
       }
     }
   </style>
+  <script>
+(() => {
+  // 方案 A：把数据直接写在这里（推荐先用这个确保能动）
+  // 字段名要和 th 的 data-sort 一致：overall/read/insh/stru/vef/con/cov/fid/sem/acc/vqa
+  let DATA = [
+    // 示例（你换成真实数据）
+    { category: "multimodal", model: "GPT-5.2", overall: 37.06, read: 45.82, insh: 0, stru: 0, vef: 26.42, con: 0, cov: 0, fid: 0, sem: 0, acc: 0, vqa: 0 },
+    { category: "multimodal", model: "Gemini-2.5-Pro", overall: 36.76, read: 61.89, insh: 0, stru: 0, vef: 38.57, con: 0, cov: 0, fid: 0, sem: 0, acc: 0, vqa: 0 }
+  ];
+
+  // 方案 B（可选）：如果你想从 assets/leaderboard.json 加载，把上面 DATA 置空并取消下面注释
+  // async function loadData() {
+  //   const r = await fetch("assets/leaderboard.json", { cache: "no-store" });
+  //   if (!r.ok) throw new Error("Failed to load leaderboard.json: " + r.status);
+  //   DATA = await r.json();
+  // }
+
+  const tableBody = document.getElementById("tableBody");
+  const searchInput = document.getElementById("searchInput");
+  const filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
+  const ths = Array.from(document.querySelectorAll("th.sortable"));
+
+  let state = {
+    filter: "all",
+    query: "",
+    sortKey: "overall",
+    sortDir: "desc"
+  };
+
+  function safeNum(x) {
+    const n = Number(x);
+    return Number.isFinite(n) ? n : -Infinity;
+  }
+
+  function getFiltered() {
+    const q = state.query.trim().toLowerCase();
+    return DATA.filter(row => {
+      const okFilter = (state.filter === "all") || (row.category === state.filter);
+      const okQuery = !q || String(row.model || "").toLowerCase().includes(q);
+      return okFilter && okQuery;
+    });
+  }
+
+  function sortRows(rows) {
+    const { sortKey, sortDir } = state;
+    const dir = sortDir === "asc" ? 1 : -1;
+
+    rows.sort((a, b) => {
+      if (sortKey === "model") {
+        return dir * String(a.model || "").localeCompare(String(b.model || ""));
+      }
+      if (sortKey === "rank") {
+        // rank 是派生的：按 overall 排出来的名次
+        return dir * (safeNum(a.__rank) - safeNum(b.__rank));
+      }
+      return dir * (safeNum(a[sortKey]) - safeNum(b[sortKey]));
+    });
+
+    return rows;
+  }
+
+  function computeRanks(rows) {
+    // rank 固定按 overall（desc）生成
+    const tmp = [...rows].sort((a,b) => safeNum(b.overall) - safeNum(a.overall));
+    tmp.forEach((r, i) => (r.__rank = i + 1));
+  }
+
+  function rankClass(r) {
+    if (r === 1) return "rank rank-1";
+    if (r === 2) return "rank rank-2";
+    if (r === 3) return "rank rank-3";
+    return "rank rank-other";
+  }
+
+  function fmt(x) {
+    const n = Number(x);
+    return Number.isFinite(n) ? n.toFixed(2) : "—";
+  }
+
+  function render() {
+    const rows = getFiltered();
+    computeRanks(rows);
+    const sorted = sortRows([...rows]);
+
+    if (!sorted.length) {
+      tableBody.innerHTML = `<tr><td colspan="13" style="text-align:center; color:#64748b; padding:18px;">No results</td></tr>`;
+      return;
+    }
+
+    tableBody.innerHTML = sorted.map(r => `
+      <tr data-category="${r.category || ""}">
+        <td>${r.__rank}</td>
+        <td class="model-cell"><span class="${rankClass(r.__rank)}">${r.__rank}</span>${r.model || ""}</td>
+        <td>${fmt(r.overall)}</td>
+        <td>${fmt(r.read)}</td>
+        <td>${fmt(r.insh)}</td>
+        <td>${fmt(r.stru)}</td>
+        <td>${fmt(r.vef)}</td>
+        <td>${fmt(r.con)}</td>
+        <td>${fmt(r.cov)}</td>
+        <td>${fmt(r.fid)}</td>
+        <td>${fmt(r.sem)}</td>
+        <td>${fmt(r.acc)}</td>
+        <td>${fmt(r.vqa)}</td>
+      </tr>
+    `).join("");
+  }
+
+  function setSortHeaderUI() {
+    ths.forEach(th => th.classList.remove("sort-asc", "sort-desc"));
+    const active = ths.find(th => th.dataset.sort === state.sortKey);
+    if (active) active.classList.add(state.sortDir === "asc" ? "sort-asc" : "sort-desc");
+  }
+
+  function bind() {
+    // filters
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.filter = btn.dataset.filter || "all";
+        render();
+      });
+    });
+
+    // search
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        state.query = e.target.value || "";
+        render();
+      });
+    }
+
+    // sort
+    ths.forEach(th => {
+      th.addEventListener("click", () => {
+        const key = th.dataset.sort;
+        if (!key) return;
+
+        if (state.sortKey === key) {
+          state.sortDir = (state.sortDir === "asc") ? "desc" : "asc";
+        } else {
+          state.sortKey = key;
+          state.sortDir = (key === "model" || key === "rank") ? "asc" : "desc";
+        }
+        setSortHeaderUI();
+        render();
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    // 如果你用方案 B 加载 JSON，就在这里 await loadData()
+    // try { await loadData(); } catch(e){ console.warn(e); }
+
+    bind();
+    setSortHeaderUI();
+    render();
+  });
+})();
+  </script>
 </head>
 
 <body>
@@ -870,3 +1031,4 @@
 
 </body>
 </html>
+
