@@ -207,7 +207,7 @@
       color: var(--muted);
     }
 
-    /* Figures: 居中 + 缩小到更合理的高度（不裁切） */
+    /* 优化后的图片显示方案 */
     figure{ margin: 0; }
     .figure-card{
       background: var(--soft);
@@ -219,27 +219,53 @@
       background:#fff;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 10px;
+      padding: 20px;
       display:flex;
       align-items:center;
-      justify-content:center; /* 关键：不再“靠左/靠右” */
+      justify-content:center;
+      overflow: hidden;
     }
+    
+    /* Intro图 - 宽横向布局，充分利用容器宽度 */
+    .paper-fig.intro{
+      display:block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    
+    /* Pipeline图 - 竖纵向布局，限制高度避免过长 */
+    .paper-fig.pipeline{
+      display:block;
+      width: auto;
+      height: auto;
+      max-height: 700px;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    
+    /* 通用图片样式（用于其他图片） */
     .paper-fig{
       display:block;
       max-width: 100%;
       height: auto;
       border-radius: 10px;
     }
-    .paper-fig.compact{
-      width: auto;        /* 让它按高度缩放 */
-      max-height: 560px;  /* 关键：intro/pipeline不会占满一屏 */
-    }
-    @media (max-width: 720px){
-      .paper-fig.compact{
+    
+    /* 响应式调整 */
+    @media (max-width: 768px){
+      .paper-fig.intro,
+      .paper-fig.pipeline{
         width: 100%;
         max-height: none;
       }
+      
+      .figure-media{
+        padding: 12px;
+      }
     }
+    
     figcaption{
       margin-top: 10px;
       color: var(--muted2);
@@ -371,7 +397,7 @@
     <div class="figure-card" style="margin-top:16px;">
       <figure>
         <div class="figure-media">
-          <img class="paper-fig compact" src="assets/introdanlan.svg" alt="MMDR-Bench overview teaser" />
+          <img class="paper-fig intro" src="assets/introdanlan.svg" alt="MMDR-Bench overview teaser" />
         </div>
         <figcaption>
           Teaser / benchmark overview (from the paper). <a href="assets/introdanlan.svg" target="_blank" rel="noopener">Open full-size</a>.
@@ -450,7 +476,7 @@
     <div class="figure-card" style="margin-top:16px;">
       <figure>
         <div class="figure-media">
-          <img class="paper-fig compact" src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline" />
+          <img class="paper-fig pipeline" src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline" />
         </div>
         <figcaption>
           MMDR-Bench evaluation pipeline (from the paper). <a href="assets/pipeline.svg" target="_blank" rel="noopener">Open full-size</a>.
@@ -478,7 +504,7 @@
 
       <div class="card" style="grid-column: span 5;">
         <h3>Figure / table (optional)</h3>
-        <p class="muted2">Export a “main results” figure/table from the PDF and place it here.</p>
+        <p class="muted2">Export a "main results" figure/table from the PDF and place it here.</p>
         <div class="figure-card" style="margin-top:10px;">
           <figure>
             <div class="figure-media">
@@ -507,7 +533,7 @@
       <div class="card" style="grid-column: span 6;">
         <h3>Dataset release note</h3>
         <p class="muted">
-          If you can’t redistribute raw images, you can still host task text + stable identifiers + derived annotations.
+          If you can't redistribute raw images, you can still host task text + stable identifiers + derived annotations.
         </p>
         <p class="muted2">
           Put downloadable files under <code>assets/</code> (e.g., <code>assets/tasks.json</code>) and link them here.
