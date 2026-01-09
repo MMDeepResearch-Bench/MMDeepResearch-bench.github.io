@@ -207,7 +207,6 @@
       color: var(--muted);
     }
 
-    /* 优化后的图片显示方案 */
     figure{ margin: 0; }
     .figure-card{
       background: var(--soft);
@@ -226,7 +225,6 @@
       overflow: hidden;
     }
     
-    /* Intro图 - 宽横向布局，充分利用容器宽度 */
     .paper-fig.intro{
       display:block;
       width: 100%;
@@ -235,7 +233,6 @@
       border-radius: 10px;
     }
     
-    /* Pipeline图 - 竖纵向布局，限制高度避免过长 */
     .paper-fig.pipeline{
       display:block;
       width: auto;
@@ -245,7 +242,6 @@
       border-radius: 10px;
     }
     
-    /* 通用图片样式（用于其他图片） */
     .paper-fig{
       display:block;
       max-width: 100%;
@@ -253,7 +249,6 @@
       border-radius: 10px;
     }
     
-    /* 响应式调整 */
     @media (max-width: 768px){
       .paper-fig.intro,
       .paper-fig.pipeline{
@@ -317,6 +312,224 @@
     @media (max-width: 880px){
       .navlinks{ display:none; }
     }
+
+    /* Leaderboard Styles */
+    .leaderboard-container {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-top: 20px;
+    }
+    
+    .leaderboard-header {
+      background: linear-gradient(135deg, var(--accent) 0%, #764ba2 100%);
+      color: white;
+      padding: 24px;
+    }
+    
+    .leaderboard-header h3 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      color: white;
+    }
+    
+    .leaderboard-header p {
+      margin: 0;
+      opacity: 0.95;
+      font-size: 14px;
+    }
+    
+    .controls {
+      padding: 16px 20px;
+      background: var(--soft);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .filter-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    
+    .filter-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+    }
+    
+    .search-box input {
+      width: 100%;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    
+    .leaderboard-table thead {
+      background: var(--soft);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .leaderboard-table th {
+      padding: 10px 8px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--muted);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      font-size: 12px;
+    }
+    
+    .leaderboard-table th:hover {
+      background: #e9ecef;
+    }
+    
+    .leaderboard-table th.sortable::after {
+      content: ' ⇅';
+      opacity: 0.3;
+      font-size: 10px;
+    }
+    
+    .leaderboard-table th.sort-asc::after {
+      content: ' ↑';
+      opacity: 1;
+    }
+    
+    .leaderboard-table th.sort-desc::after {
+      content: ' ↓';
+      opacity: 1;
+    }
+    
+    .metric-group {
+      border-left: 2px solid var(--border);
+    }
+    
+    .leaderboard-table td {
+      padding: 10px 8px;
+      text-align: center;
+      border-bottom: 1px solid #f1f3f5;
+    }
+    
+    .leaderboard-table tr:hover {
+      background: var(--soft);
+    }
+    
+    .model-cell {
+      text-align: left !important;
+      font-weight: 500;
+      padding-left: 12px !important;
+      position: sticky;
+      left: 0;
+      background: white;
+      z-index: 5;
+      min-width: 180px;
+    }
+    
+    .leaderboard-table tr:hover .model-cell {
+      background: var(--soft);
+    }
+    
+    .rank {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      margin-right: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    
+    .rank-1 { background: #ffd700; color: #000; }
+    .rank-2 { background: #c0c0c0; color: #000; }
+    .rank-3 { background: #cd7f32; color: #fff; }
+    .rank-other { background: #e9ecef; color: #6c757d; }
+    
+    .best-score {
+      background: #d1f4e0;
+      color: #0a6e3a;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+    
+    .second-score {
+      background: #e7f3ff;
+      color: #0056b3;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+    
+    .category-row {
+      background: #e9ecef;
+      font-weight: 600;
+      font-style: italic;
+    }
+    
+    .category-row td {
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 12px;
+    }
+    
+    @media (max-width: 768px){
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-box {
+        max-width: 100%;
+      }
+      
+      .model-cell {
+        position: static;
+      }
+    }
   </style>
 </head>
 
@@ -332,6 +545,7 @@
         <a href="#overview">Overview</a>
         <a href="#benchmark">Benchmark</a>
         <a href="#evaluation">Evaluation</a>
+        <a href="#leaderboard">Leaderboard</a>
         <a href="#findings">Findings</a>
         <a href="#resources">Resources</a>
         <a href="#bibtex">BibTeX</a>
@@ -485,6 +699,59 @@
     </div>
   </section>
 
+  <section id="leaderboard">
+    <h2>Leaderboard</h2>
+    <p class="muted">
+      Interactive leaderboard showing overall and per-metric performance across all evaluated models.
+      Click column headers to sort, use filters to explore different categories.
+    </p>
+
+    <div class="leaderboard-container">
+      <div class="leaderboard-header">
+        <h3>🏆 Model Rankings</h3>
+        <p>Comprehensive evaluation results for multimodal deep research agents</p>
+      </div>
+      
+      <div class="controls">
+        <div class="filter-group">
+          <label style="font-weight: 500; font-size: 13px;">Category:</label>
+          <button class="filter-btn active" data-filter="all">All Models</button>
+          <button class="filter-btn" data-filter="single">Single-Modal</button>
+          <button class="filter-btn" data-filter="multimodal">Multimodal</button>
+          <button class="filter-btn" data-filter="agent">Deep Research</button>
+        </div>
+        
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search models...">
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <table class="leaderboard-table" id="leaderboardTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="rank">Rank</th>
+              <th class="sortable" data-sort="model">Model</th>
+              <th class="sortable" data-sort="overall">Overall</th>
+              <th class="metric-group sortable" data-sort="read" title="Readability">Read.</th>
+              <th class="sortable" data-sort="insh" title="Insightfulness">Insh.</th>
+              <th class="sortable" data-sort="stru" title="Structure">Stru.</th>
+              <th class="metric-group sortable" data-sort="vef" title="Visual Evidence Fidelity">Vef.</th>
+              <th class="sortable" data-sort="con" title="Consistency">Con.</th>
+              <th class="sortable" data-sort="cov" title="Coverage">Cov.</th>
+              <th class="sortable" data-sort="fid" title="Fidelity">Fid.</th>
+              <th class="metric-group sortable" data-sort="sem" title="Semantic">Sem.</th>
+              <th class="sortable" data-sort="acc" title="Accuracy">Acc.</th>
+              <th class="sortable" data-sort="vqa" title="VQA">VQA</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <section id="findings">
     <h2>Key results & findings</h2>
     <p class="muted">
@@ -551,46 +818,55 @@
   </section>
 
   <section id="bibtex">
-    <h2>BibTeX</h2>
-    <div class="card" style="position: relative;">
-      <button class="copy" onclick="
-        const t = document.getElementById('bib').innerText;
-        navigator.clipboard.writeText(t).then(()=>{ this.textContent='Copied'; setTimeout(()=>this.textContent='Copy',1200); });
-      ">Copy</button>
+  <h2>BibTeX</h2>
+  <div class="card" style="position: relative;">
+    <button class="copy" onclick="
+      const t = document.getElementById('bib').innerText;
+      navigator.clipboard.writeText(t).then(()=>{
+        this.textContent='Copied';
+        setTimeout(()=>this.textContent='Copy',1200);
+      });
+    ">Copy</button>
 
-      <pre id="bib"><code>@article{MMDRBench,
+    <pre id="bib"><code>@article{MMDRBench,
   title   = {MMDeepResearch-Bench: Grounded Evaluation and Alignment for Multimodal Deep Research Agents},
   author  = {Anonymous},
   journal = {arXiv / ACL submission},
   year    = {2026},
   note    = {Update this BibTeX when public}
 }</code></pre>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="grid" style="margin-top:14px;">
-      <div class="card" style="grid-column: span 6;">
-        <h3>Maintainers</h3>
-        <p class="muted">Add maintainer names / lab / affiliations here.</p>
-      </div>
-      <div class="card" style="grid-column: span 6;">
-        <h3>Email</h3>
-        <p class="muted">contact@example.com</p>
-      </div>
+<section id="contact">
+  <h2>Contact</h2>
+  <div class="grid" style="margin-top:14px;">
+    <div class="card" style="grid-column: span 6;">
+      <h3>Maintainers</h3>
+      <p class="muted">
+        Add maintainer names / lab / affiliations here.
+      </p>
     </div>
-  </section>
+    <div class="card" style="grid-column: span 6;">
+      <h3>Email</h3>
+      <p class="muted">
+        contact@example.com
+      </p>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <div class="footer-inner">
-      <div>© 2026 MMDR-Bench</div>
-      <div class="muted2">
-        <a href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io" target="_blank" rel="noopener">GitHub Pages</a>
-      </div>
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 MMDR-Bench</div>
+    <div class="muted2">
+      <a href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io"
+         target="_blank" rel="noopener">
+        GitHub Pages
+      </a>
     </div>
-  </footer>
+  </div>
+</footer>
+
 </body>
 </html>
-
-
