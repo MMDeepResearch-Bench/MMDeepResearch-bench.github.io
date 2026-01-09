@@ -6,7 +6,6 @@
   <title>MMDeepResearch-Bench (MMDR-Bench)</title>
   <meta name="description" content="Grounded evaluation and alignment for multimodal deep research agents." />
 
-  <!-- Fonts (MMMU-like: clean + academic) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,8 +19,8 @@
       --border:#e2e8f0;
       --card:#ffffff;
       --soft:#f8fafc;
-      --accent:#4f46e5;     /* indigo */
-      --accent2:#06b6d4;    /* cyan */
+      --accent:#4f46e5;
+      --accent2:#06b6d4;
       --shadow: 0 12px 28px rgba(2, 6, 23, .08);
       --radius: 14px;
       --max: 1120px;
@@ -37,7 +36,6 @@
     a{ color: inherit; text-decoration: none; }
     a:hover{ color: var(--accent); text-decoration: underline; }
 
-    /* Top bar */
     header{
       position: sticky;
       top: 0;
@@ -93,7 +91,6 @@
     .lang a{ text-decoration:none; }
     .lang .active{ color: var(--fg); font-weight: 600; }
 
-    /* Layout helpers */
     section{
       max-width: var(--max);
       margin: 0 auto;
@@ -108,7 +105,6 @@
     .muted{ color: var(--muted); }
     .muted2{ color: var(--muted2); }
 
-    /* Hero */
     .hero-wrap{
       background:
         radial-gradient(900px 260px at 15% 0%, rgba(79,70,229,.10), transparent 60%),
@@ -175,7 +171,6 @@
     }
     .btn:hover{ text-decoration:none; filter: brightness(1.02); }
 
-    /* Cards */
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -212,7 +207,6 @@
       color: var(--muted);
     }
 
-    /* Figures */
     figure{ margin: 0; }
     .figure-card{
       background: var(--soft);
@@ -221,21 +215,48 @@
       padding: 14px;
       overflow:hidden;
     }
-    .figure-card img{
+
+    /* ✅ 更合理的“框”：固定高度 + contain + 居中，避免错位撑爆 */
+    .figure-frame{
       width: 100%;
-      height: auto;
-      display:block;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background:#fff;
+      background: #fff;
+      overflow: hidden;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      padding: 10px;
     }
+    .figure-frame.teaser{ height: 340px; }
+    .figure-frame.pipeline{ height: 560px; }
+
+    .figure-frame img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display:block;
+    }
+
+    .figure-open{
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted2);
+    }
+    .figure-open a{
+      color: var(--accent);
+      font-weight: 600;
+    }
+
     figcaption{
       margin-top: 10px;
       color: var(--muted2);
       font-size: 13px;
     }
 
-    /* Code block / BibTeX */
     pre{
       margin: 0;
       background: #0b1220;
@@ -261,7 +282,6 @@
       font-size: 12px;
     }
 
-    /* Footer */
     footer{
       border-top: 1px solid var(--border);
       background: #ffffff;
@@ -278,9 +298,10 @@
       font-size: 13px;
     }
 
-    /* Responsive */
     @media (max-width: 880px){
       .navlinks{ display:none; }
+      .figure-frame.teaser{ height: 260px; }
+      .figure-frame.pipeline{ height: 420px; }
     }
   </style>
 </head>
@@ -361,10 +382,15 @@
 
     <div class="figure-card" style="margin-top:16px;">
       <figure>
-        <!-- from latex/figure/introdanlan.pdf -->
-        <img src="assets/introdanlan.svg" alt="MMDR-Bench overview teaser (SVG)" />
+        <!-- ✅ intro: SVG + 固定框 -->
+        <div class="figure-frame teaser">
+          <img src="assets/introdanlan.svg" alt="MMDR-Bench teaser figure (introdanlan)" />
+        </div>
+        <div class="figure-open">
+          Open full-size: <a href="assets/introdanlan.svg" target="_blank" rel="noopener">introdanlan.svg</a>
+        </div>
         <figcaption>
-          MMDR-Bench overview (SVG export of <code>introdanlan.pdf</code>). File: <code>assets/introdanlan.svg</code>
+          MMDR-Bench evaluates multimodal deep research abilities at both integrated and atomic levels.
         </figcaption>
       </figure>
     </div>
@@ -407,27 +433,6 @@
         </ul>
       </div>
     </div>
-
-    <div class="grid" style="margin-top:14px;">
-      <div class="figure-card" style="grid-column: span 6;">
-        <figure>
-          <!-- from latex/figure/distribution.pdf -->
-          <img src="assets/distribution.svg" alt="Task distribution (SVG)" />
-          <figcaption>
-            Task distribution (SVG export of <code>distribution.pdf</code>). File: <code>assets/distribution.svg</code>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="figure-card" style="grid-column: span 6;">
-        <figure>
-          <!-- from latex/figure/datasamples.pdf -->
-          <img src="assets/datasamples.svg" alt="Task examples (SVG)" />
-          <figcaption>
-            Example tasks (SVG export of <code>datasamples.pdf</code>). File: <code>assets/datasamples.svg</code>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
   </section>
 
   <section id="evaluation">
@@ -460,10 +465,15 @@
 
     <div class="figure-card" style="margin-top:16px;">
       <figure>
-        <!-- from latex/figure/pipeline.pdf -->
-        <img src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline (SVG)" />
+        <!-- ✅ pipeline: SVG + 更大但仍受控的框 -->
+        <div class="figure-frame pipeline">
+          <img src="assets/pipeline.svg" alt="MMDR-Bench evaluation pipeline (pipeline)" />
+        </div>
+        <div class="figure-open">
+          Open full-size: <a href="assets/pipeline.svg" target="_blank" rel="noopener">pipeline.svg</a>
+        </div>
         <figcaption>
-          MMDR-Bench evaluation pipeline (SVG export of <code>pipeline.pdf</code>). File: <code>assets/pipeline.svg</code>
+          The MMDR-Bench evaluation pipeline. Reports are processed through parallel FLAE and TRACE modules, followed by a gated MOSAIC stage.
         </figcaption>
       </figure>
     </div>
@@ -487,37 +497,19 @@
       </div>
 
       <div class="card" style="grid-column: span 5;">
-        <h3>Main results</h3>
-        <p class="muted2">SVG export of the overall score figure.</p>
+        <h3>Figure / table (optional)</h3>
+        <p class="muted2">Export a “main results” figure/table from the PDF and place it here.</p>
         <div class="figure-card" style="margin-top:10px;">
           <figure>
-            <!-- from latex/figure/bar_plot.pdf -->
-            <img src="assets/bar_plot.svg" alt="Overall MMDR-Bench score (SVG)" />
-            <figcaption>Overall MMDR-Bench score (SVG export of <code>bar_plot.pdf</code>).</figcaption>
+            <div class="figure-frame teaser" style="height:260px;">
+              <img src="assets/fig_results.svg" alt="Main results (optional)" />
+            </div>
+            <div class="figure-open">
+              (optional) <a href="assets/fig_results.svg" target="_blank" rel="noopener">fig_results.svg</a>
+            </div>
+            <figcaption>Optional: main results snapshot.</figcaption>
           </figure>
         </div>
-      </div>
-    </div>
-
-    <div class="grid" style="margin-top:14px;">
-      <div class="figure-card" style="grid-column: span 6;">
-        <figure>
-          <!-- from latex/figure/unified_failure_analysis.pdf -->
-          <img src="assets/unified_failure_analysis.svg" alt="Unified failure mode analysis (SVG)" />
-          <figcaption>
-            Unified failure mode analysis (SVG export of <code>unified_failure_analysis.pdf</code>).
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="figure-card" style="grid-column: span 6;">
-        <figure>
-          <!-- from latex/figure/heat.pdf -->
-          <img src="assets/heat.svg" alt="Domain-level heatmap (SVG)" />
-          <figcaption>
-            Domain-level score breakdown (Research regime; SVG export of <code>heat.pdf</code>).
-          </figcaption>
-        </figure>
       </div>
     </div>
   </section>
