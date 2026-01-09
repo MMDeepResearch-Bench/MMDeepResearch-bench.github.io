@@ -471,6 +471,24 @@
       background: var(--soft);
     }
     
+    .company-logo {
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+      border-radius: 3px;
+    }
+    
+    .model-cell:hover .company-logo {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    
     .rank {
       display: inline-block;
       width: 22px;
@@ -636,6 +654,43 @@
     return Number.isFinite(n) ? n.toFixed(2) : "—";
   }
 
+  function getCompanyLogo(modelName) {
+    const model = modelName.toLowerCase();
+    // OpenAI
+    if (model.includes("gpt") || model.includes("openai") || model.includes("chatgpt")) {
+      return '<img src="ico/gpt.png" alt="OpenAI" class="company-logo company-openai" title="OpenAI" />';
+    }
+    // Anthropic
+    if (model.includes("claude")) {
+      return '<img src="ico/Claude.png" alt="Anthropic" class="company-logo company-anthropic" title="Anthropic" />';
+    }
+    // Google/Gemini
+    if (model.includes("gemini")) {
+      return '<img src="ico/gemini.png" alt="Google" class="company-logo company-google" title="Google" />';
+    }
+    // DeepSeek
+    if (model.includes("deepseek")) {
+      return '<img src="ico/deepseek.png" alt="DeepSeek" class="company-logo company-deepseek" title="DeepSeek" />';
+    }
+    // Alibaba/通义/Qwen/Tongyi
+    if (model.includes("qwen") || model.includes("tongyi")) {
+      return '<img src="ico/qwen.png" alt="Alibaba" class="company-logo company-alibaba" title="Alibaba" />';
+    }
+    // Moonshot AI / Kimi
+    if (model.includes("kimi")) {
+      return '<img src="ico/kimi.png" alt="Moonshot AI" class="company-logo company-moonshot" title="Moonshot AI" />';
+    }
+    // xAI / Grok
+    if (model.includes("grok")) {
+      return '<img src="ico/grok.png" alt="xAI" class="company-logo company-xai" title="xAI" />';
+    }
+    // Perplexity
+    if (model.includes("perplexity") || model.includes("sonar")) {
+      return '<img src="ico/sonar.png" alt="Perplexity" class="company-logo company-perplexity" title="Perplexity" />';
+    }
+    return '<span class="company-logo" title="Unknown">•</span>';
+  }
+
   function render() {
     if (!tableBody) return;
     
@@ -651,7 +706,7 @@
     tableBody.innerHTML = sorted.map(r => `
       <tr data-category="${r.category || ""}">
         <td>${r.__rank}</td>
-        <td class="model-cell"><span class="${rankClass(r.__rank)}">${r.__rank}</span>${r.model || ""}</td>
+        <td class="model-cell"><span class="${rankClass(r.__rank)}">${r.__rank}</span>${getCompanyLogo(r.model)} <span class="model-name">${r.model || ""}</span></td>
         <td>${fmt(r.overall)}</td>
         <td>${fmt(r.read)}</td>
         <td>${fmt(r.insh)}</td>
