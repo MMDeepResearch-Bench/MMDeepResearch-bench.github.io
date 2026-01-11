@@ -58,19 +58,16 @@
     .brand{
       display:flex;
       align-items:center;
-      gap:12px; /* 调整间距 */
+      gap:12px;
       font-weight:900;
       letter-spacing:-.01em;
     }
-    
-    /* 新增：导航栏Logo图片样式 */
     .brand-logo {
       height: 32px;
       width: auto;
       border-radius: 6px;
       display: block;
     }
-
     .navlinks{
       display:flex;
       flex-wrap:wrap;
@@ -90,19 +87,6 @@
       text-decoration:none;
       color:var(--fg);
     }
-    .lang{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      border-left:1px solid var(--border);
-      padding-left:12px;
-      margin-left:4px;
-      font-size:13px;
-      font-weight:800;
-      color:var(--muted2);
-    }
-    .lang a{ color:var(--muted2); }
-    .lang .active{ color:var(--fg); }
     @media (max-width: 880px){
       .navlinks{ display:none; }
     }
@@ -130,16 +114,13 @@
       line-height:1;
       margin-bottom:10px;
     }
-    
-    /* 新增：Hero区域大Logo图片样式 */
     .hero-logo {
-      height: 56px; /* 稍微大一点匹配标题 */
+      height: 56px;
       width: auto;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(2,6,23,.1);
-      background: white; /* 防止png透明背景下看不清 */
+      background: white;
     }
-
     .title{
       margin:0 auto;
       font-size: clamp(22px, 3.2vw, 34px);
@@ -148,23 +129,47 @@
       max-width: 980px;
       letter-spacing:-.01em;
     }
-    .authors{
-      margin:14px auto 0;
+    
+    /* Author Section Styling */
+    .authors-wrapper {
+      margin: 20px auto 0;
       max-width: 980px;
+      text-align: center;
+    }
+    .authors {
+      color: #0f172a; /* 更深的颜色，突出作者 */
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .authors a { color: inherit; text-decoration: none; }
+    .authors a:hover { text-decoration: underline; }
+    
+    .team-label {
+      margin-top: 10px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--fg);
+    }
+    
+    .contribution-notes {
+      margin-top: 8px;
+      font-size: 13px;
       color: var(--muted2);
-      font-size: 14px;
-      font-weight:600;
-      line-height: 1.7;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    /* All-black buttons */
+    /* Buttons */
     .publication-links{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
       align-items:center;
       justify-content:center;
-      margin-top:18px;
+      margin-top:24px;
     }
     .button{
       display:inline-flex;
@@ -244,7 +249,7 @@
       font-weight:900;
     }
 
-    /* cards / grid */
+    /* Grid & Cards */
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -257,7 +262,6 @@
       padding:16px;
       box-shadow:var(--shadow);
     }
-
     figure{ margin:0; }
     .figure-card{
       background:var(--soft);
@@ -316,154 +320,87 @@
       color: white;
       font-weight: 600;
     }
-
     .controls {
       padding: 16px 20px;
       background: var(--soft);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
     }
-    .filter-group {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+    .filter-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .filter-btn {
-      padding: 6px 14px;
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 13px;
-      transition: all 0.2s;
-      font-weight: 800;
-      color: var(--fg);
+      padding: 6px 14px; border: 1px solid var(--border); background: white;
+      border-radius: 999px; cursor: pointer; font-size: 13px;
+      transition: all 0.2s; font-weight: 800; color: var(--fg);
     }
-    .filter-btn:hover {
-      border-color: var(--dark);
-      color: var(--dark);
-    }
-    .filter-btn.active {
-      background: var(--dark);
-      color: white;
-      border-color: var(--dark);
-    }
-
+    .filter-btn:hover { border-color: var(--dark); color: var(--dark); }
+    .filter-btn.active { background: var(--dark); color: white; border-color: var(--dark); }
     .search-box { flex: 1; min-width: 200px; max-width: 320px; }
     .search-box input {
-      width: 100%;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 13px;
-      outline: none;
-      font-weight: 600;
+      width: 100%; padding: 8px 12px; border: 1px solid var(--border);
+      border-radius: 999px; font-size: 13px; outline: none; font-weight: 600;
     }
-    .search-box input:focus{
-      border-color: rgba(2,6,23,.35);
-      box-shadow: 0 0 0 3px rgba(2,6,23,.10);
+    .search-box input:focus{ border-color: rgba(2,6,23,.35); box-shadow: 0 0 0 3px rgba(2,6,23,.10); }
+    
+    .metrics-legend {
+      padding: 16px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .legend-title { font-weight: 900; margin-bottom: 8px; display: block; color: var(--fg); }
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .legend-item { display: flex; align-items: baseline; gap: 6px; line-height: 1.4; }
+    .legend-badge { 
+      background: var(--dark); color: white; padding: 2px 6px; border-radius: 4px; 
+      font-weight: 700; font-size: 11px; flex-shrink: 0;
     }
 
     .table-container { overflow-x: auto; }
     .leaderboard-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .leaderboard-table thead {
-      background: var(--soft);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+    .leaderboard-table thead { background: var(--soft); position: sticky; top: 0; z-index: 10; }
     .leaderboard-table th {
-      padding: 10px 8px;
-      text-align: center;
-      font-weight: 900;
-      color: var(--muted);
-      border-bottom: 2px solid var(--border);
-      white-space: nowrap;
-      cursor: pointer;
-      user-select: none;
-      font-size: 12px;
+      padding: 10px 8px; text-align: center; font-weight: 900; color: var(--muted);
+      border-bottom: 2px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; font-size: 12px;
     }
     .leaderboard-table th:hover { background: #eef2ff; }
     .leaderboard-table th.sortable::after { content: ' ⇅'; opacity: 0.3; font-size: 10px; }
     .leaderboard-table th.sort-asc::after { content: ' ↑'; opacity: 1; }
     .leaderboard-table th.sort-desc::after { content: ' ↓'; opacity: 1; }
     .metric-group { border-left: 2px solid var(--border); }
-
-    .leaderboard-table td {
-      padding: 10px 8px;
-      text-align: center;
-      border-bottom: 1px solid #f1f3f5;
-      font-weight: 600;
-    }
+    .leaderboard-table td { padding: 10px 8px; text-align: center; border-bottom: 1px solid #f1f3f5; font-weight: 600; }
     .leaderboard-table tr:hover { background: var(--soft); }
-
     .model-cell {
-      text-align: left !important;
-      font-weight: 800;
-      padding-left: 12px !important;
-      position: sticky;
-      left: 0;
-      background: white;
-      z-index: 5;
-      min-width: 240px;
+      text-align: left !important; font-weight: 800; padding-left: 12px !important;
+      position: sticky; left: 0; background: white; z-index: 5; min-width: 240px;
     }
     .leaderboard-table tr:hover .model-cell { background: var(--soft); }
-
     .company-logo {
-      display: inline-block;
-      margin-right: 8px;
-      vertical-align: middle;
-      width: 20px;
-      height: 20px;
-      object-fit: contain;
-      opacity: 0.9;
-      transition: opacity 0.2s, transform 0.2s;
-      flex-shrink: 0;
-      border-radius: 4px;
+      display: inline-block; margin-right: 8px; vertical-align: middle;
+      width: 20px; height: 20px; object-fit: contain; opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0; border-radius: 4px;
     }
     .model-cell:hover .company-logo { opacity: 1; transform: scale(1.05); }
-
     .rank {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      line-height: 22px;
-      text-align: center;
-      border-radius: 50%;
-      margin-right: 6px;
-      font-size: 11px;
-      font-weight: 1000;
+      display: inline-block; width: 22px; height: 22px; line-height: 22px;
+      text-align: center; border-radius: 50%; margin-right: 6px; font-size: 11px; font-weight: 1000;
     }
     .rank-1 { background: #ffd700; color: #000; }
     .rank-2 { background: #c0c0c0; color: #000; }
     .rank-3 { background: #cd7f32; color: #fff; }
     .rank-other { background: #e9ecef; color: #6c757d; }
-
     @media (max-width: 768px){
       .controls { flex-direction: column; align-items: stretch; }
       .search-box { max-width: 100%; }
       .model-cell { position: static; min-width: 0; }
     }
 
-    footer{
-      border-top:1px solid var(--border);
-      background:#fff;
-      padding:28px 18px;
-      color:var(--muted2);
-    }
-    .footer-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      gap:12px;
-      font-size:13px;
-    }
+    footer{ border-top:1px solid var(--border); background:#fff; padding:28px 18px; color:var(--muted2); }
+    .footer-inner{ max-width:var(--max); margin:0 auto; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; font-size:13px; }
   </style>
 
   <script>
@@ -688,8 +625,8 @@
       <div class="navlinks">
         <a href="#introduction">Introduction</a>
         <a href="#dataset">Dataset</a>
-        <a href="#experiments">Experiments</a>
         <a href="#leaderboard">Leaderboard</a>
+        <a href="#experiments">Experiments</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -710,9 +647,16 @@
           MMDeepResearch-Bench: Grounded Evaluation &amp; Alignment for Multimodal Deep Research Agents
         </h1>
 
-        <div class="authors">
-          Peizhou Huang, Zixuan Zhong, Zhongwei Wan, Donghao Zhou, Samiul Alam, Xin Wang, Zexin Li, Zhihao Dou, Li Zhu,
-          Jing Xiong, Chaofan Tao, Yan Xu, Dimitrios Dimitriadis, Tuo Zhang, Mi Zhang
+        <div class="authors-wrapper">
+          <div class="authors">
+            Peizhou Huang<sup>*</sup>, Zixuan Zhong<sup>*</sup>, Zhongwei Wan, Donghao Zhou, Samiul Alam, Xin Wang, Zexin Li, Zhihao Dou, Li Zhu,
+            Jing Xiong, Chaofan Tao, Yan Xu, Dimitrios Dimitriadis, Tuo Zhang<sup>†</sup>, Mi Zhang<sup>†</sup>
+          </div>
+          <div class="team-label">MMDR-Bench Team</div>
+          <div class="contribution-notes">
+            <span>* Core Contributors</span>
+            <span style="margin-left: 12px;">† Corresponding Authors</span>
+          </div>
         </div>
 
         <div class="publication-links">
@@ -732,7 +676,7 @@
 
         <div class="meta-row">
           <span class="badge">140 tasks</span>
-          <span class="badge">21 domains</span>
+          <span class="badge">19 domains</span>
           <span class="badge">Daily + Research regimes</span>
           <span class="badge">Citation-grounded reports</span>
         </div>
@@ -743,24 +687,42 @@
   <section id="introduction">
     <div class="container is-max-desktop">
       <h2 class="has-text-centered">Introduction</h2>
+      
       <div class="content has-text-justified">
-        <p class="muted">
-          MMDR-Bench targets end-to-end multimodal deep research: models must interpret task-provided images, gather supporting sources,
-          and synthesize long-form reports with verifiable Claim–URL citations, while staying faithful to visual evidence.
+        <p>
+          Recent advancements in foundation models have driven a paradigm shift from static, language-centric systems to <strong>Large Multimodal Models (LMMs)</strong> capable of jointly processing text and visual inputs. While modern LMMs can reason over structured artifacts like charts and documents, they remain limited by fixed parametric memory. This limitation has motivated the rise of <strong>Deep Research Agents (DRAs)</strong>—systems that autonomously browse the web, retrieve external evidence, and synthesize long-form reports to answer open-ended questions.
         </p>
-        <p class="muted">
-          Start with <strong>Dataset</strong> to see what tasks look like, then use the <strong>Leaderboard</strong> section to compare
-          systems by overall score and per-metric trade-offs.
+        <p>
+          However, a critical gap persists in current evaluations. Real-world research is rarely text-only; it inherently requires aligning textual claims with visual evidence such as scientific figures, medical imagery, or financial charts. Existing benchmarks generally fall into two siloed categories: they either focus on <strong>text-only deep research</strong> (ignoring visual evidence) or <strong>short-form multimodal perception</strong> (ignoring the long-horizon synthesis and retrieval required for research reports).
+        </p>
+        <p>
+          <strong>MMDeepResearch-Bench (MMDR-Bench)</strong> bridges this gap. It is the first benchmark designed to evaluate <strong>end-to-end multimodal deep research</strong>. Unlike previous datasets, every task in MMDR-Bench is packaged as an <strong>image-text bundle</strong>, forcing agents to step beyond simple "seeing" and move towards "researching with vision."
         </p>
       </div>
 
-      <div class="figure-card" style="margin-top:16px;">
+      <div class="figure-card" style="margin-top:24px; margin-bottom: 24px;">
         <figure>
           <div class="figure-media">
-            <img class="paper-fig" src="assets/introdanlan.png" alt="MMDR-Bench overview figure" />
+            <img class="paper-fig" src="assets/introdanlan.png" alt="Evaluated Dimensions of MMDR-Bench" />
           </div>
-          <figcaption>Overview: MMDR-Bench evaluates multimodal deep research at integrated and atomic levels.</figcaption>
+          <figcaption>
+            <strong>Figure 1:</strong> The Hierarchical Evaluation Framework of MMDR-Bench. We assess agents not just on isolated skills, but on how they integrate atomic foundation capabilities into complex deep research workflows.
+          </figcaption>
         </figure>
+      </div>
+
+      <div class="content has-text-justified">
+        <p>
+          As illustrated in Figure 1, MMDR-Bench evaluates agents across two distinct levels of capability. At the <strong>Foundational Level (Atomic)</strong>, we assess the essential building blocks required for research. This begins with robust <strong>Visual Perception</strong> to accurately read visual elements like entities and numbers, paired with effective <strong>Web Search Tools</strong> usage to multi-step browse and collect diverse sources. Furthermore, the system must demonstrate <strong>Long-Context Understanding</strong> to digest large volumes of multi-source inputs while maintaining consistency, all while strictly adhering to <strong>Instruction Following</strong> constraints to produce aligned outputs.
+        </p>
+
+        <p>
+          Moving to the <strong>Deep Research Level (Integrated)</strong>, the benchmark tests how these atomic skills synthesize into a coherent workflow. Agents must demonstrate <strong>Multimodal Task Understanding</strong> by jointly parsing visual and textual content to identify the research intent. Crucially, they need <strong>Visually-Grounded Planning</strong>, utilizing visual cues to formulate search queries and iteratively refine their research plan. We enforce strict evidence standards through <strong>Citation-Grounded Reasoning</strong>, where agents must link claims to verifiable multimodal sources. Finally, the process culminates in <strong>Long-Form Report Synthesis</strong>, producing a comprehensive, citation-rich multimodal report.
+        </p>
+        
+        <p style="margin-top: 20px;">
+          To operationalize this, we propose a comprehensive pipeline including <strong>FLAE</strong> (for report quality), <strong>TRACE</strong> (for citation verification), and <strong>MOSAIC</strong> (for visual integrity), ensuring that strong visual perception translates into reliable, grounded research.
+        </p>
       </div>
     </div>
   </section>
@@ -774,81 +736,69 @@
   <section>
     <div class="container is-max-desktop">
       <h2 class="has-text-centered">MMDR-Bench Benchmark</h2>
+      
       <div class="content has-text-justified">
-        <p class="muted">
-          MMDR-Bench contains <strong>140 expert-crafted tasks</strong> across <strong>21 domains</strong>, organized into two complementary regimes:
-          <strong>Daily</strong> (screenshots/photos/UI captures) and <strong>Research</strong> (charts/diagrams/tables requiring longer synthesis).
+        <p>
+          MMDR-Bench is meticulously constructed to simulate the full spectrum of modern information-seeking behaviors. It comprises <strong>140 expert-crafted tasks</strong> spanning <strong>19 diverse domains</strong>. Unlike traditional QA datasets, each instance in MMDR-Bench is packaged as an <strong>"Image-Text Bundle"</strong>—a textual query paired with a set of necessary visual artifacts. This design forces the agent to treat images not just as decoration, but as primary sources of evidence that must be interpreted, verified, and cited in the final report.
         </p>
-        <p class="muted">
-          Each instance is packaged as an <strong>image–text bundle</strong> with a variable number of images. We annotate difficulty and record task language,
-          enabling evaluation in realistic settings.
+        <p>
+          To ensure the benchmark covers both breadth and depth, we organize tasks into two distinct but complementary regimes: <strong>Daily</strong> and <strong>Research</strong>.
         </p>
       </div>
 
-      <div class="grid" style="margin-top:16px;">
-        <div style="grid-column: span 6;">
+      <div class="grid" style="margin-top:32px; align-items: start;">
+        <div style="grid-column: span 5;">
           <div class="figure-card">
             <figure>
-              <div class="figure-media">
-                <img class="paper-fig" src="assets/distribution.svg" alt="Task distribution" />
+              <div class="figure-media" style="padding: 20px;">
+                <img class="paper-fig" src="assets/distribution.svg" alt="Figure 2: Task Distribution across Daily and Research regimes" />
               </div>
-              <figcaption>Task distribution across regimes and domains.</figcaption>
+              <figcaption>
+                <strong>Figure 2:</strong> The distribution of 140 tasks across 19 domains. The benchmark is split into a <strong>Daily Regime (28.6%)</strong> for breadth and a <strong>Research Regime (71.4%)</strong> for depth.
+              </figcaption>
             </figure>
           </div>
         </div>
+        
+        <div style="grid-column: span 7;">
+          <h3 class="muted" style="margin-top: 0;">Regime 1: Daily Tasks (28.6%)</h3>
+          <p class="muted" style="font-size: 15px;">
+            As shown in the inner ring of Figure 2, this regime covers 10 domains such as <em>Health, Entertainment, and Technology</em>. These tasks simulate everyday user needs using loosely structured visuals like <strong>screenshots, photographs, and UI captures</strong>. The challenge here lies in "grounding in reality"—agents must deal with noisy, real-world images and perform lightweight, verifiable evidence gathering (e.g., checking if a product in a photo is available locally).
+          </p>
 
-        <div style="grid-column: span 6;">
+          <h3 class="muted" style="margin-top: 16px;">Regime 2: Research Tasks (71.4%)</h3>
+          <p class="muted" style="font-size: 15px;">
+            The majority of the benchmark focuses on analysis-heavy settings, spanning 9 domains including <em>Computer Science, Biomedical Science, and Economics</em>. These tasks utilize information-dense visuals such as <strong>scientific charts, diagrams, architecture plots, and tables</strong>. Success in this regime requires deep synthesis: agents must extract precise parameters from diagrams (e.g., hidden sizes in a neural network) and integrate them with academic literature to produce professional, citation-grounded reports.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="has-text-centered" style="margin-top: 40px; margin-bottom: 20px;">Case Studies: From Daily Life to Deep Science</h3>
+      
+      <div class="grid">
+        <div style="grid-column: span 12;">
           <div class="figure-card">
             <figure>
               <div class="figure-media">
-                <img class="paper-fig" src="assets/datasamples.svg" alt="Example tasks" />
+                <img class="paper-fig" src="assets/datasamples.svg" alt="Figure 3: Example tasks illustrating the difference between Daily and Research workflows" />
               </div>
-              <figcaption>Example tasks illustrating Daily vs. Research settings.</figcaption>
+              <figcaption>
+                <strong>Figure 3:</strong> Two concrete examples from MMDR-Bench. <strong>Left:</strong> A Health domain task requiring product recognition and local search. <strong>Right:</strong> A Computer Science task requiring architectural analysis and theoretical complexity derivation.
+              </figcaption>
             </figure>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <div class="band" id="experiments">
-    <div class="band-inner">
-      <h1 class="band-title">Experiments</h1>
-    </div>
-  </div>
-
-  <section>
-    <div class="container is-max-desktop">
-      <h2 class="has-text-centered">Results &amp; Findings</h2>
-
-      <div class="content has-text-justified">
-        <p class="muted">
-          Results highlight cross-metric trade-offs between writing quality, citation discipline, and multimodal grounding.
-          Use the leaderboard below to sort models and compare per-metric performance.
+      <div class="content has-text-justified" style="margin-top: 20px;">
+        <p>
+          Figure 3 vividly illustrates the divergence in capability requirements through two concrete examples. In the Health task shown on the left, the user presents a photo of an eye drop bottle along with described symptoms. The agent cannot merely rely on OCR; it must identify the specific medical indications of the product, cross-reference them with the user's condition (dryness and itching), and perform a geo-specific search to find purchasing options in London. This demands a combination of visual entity identification and localized grounding. Conversely, the Computer Science task on the right presents diagrams of a GPT-style architecture. Here, the agent is required to extract technical facts—such as dataflow directions and normalization layers—directly from the pixels and derive theoretical time or memory complexity using open web sources, testing structural visual parsing and multimodal theoretical reasoning.
+        </p>
+        <p>
+          All tasks were iteratively refined by <strong>PhD-level domain experts</strong> to ensure that the visual evidence is strictly necessary—an agent cannot solve the task by text search alone.
         </p>
       </div>
 
-      <h3 style="margin-top:18px;">Key Findings</h3>
-      <div class="content has-text-justified">
-        <p class="muted">
-          <strong>1) Vision helps only when it is reliable as evidence.</strong> Noisy or auxiliary visuals can seed incorrect premises that propagate through retrieval and synthesis.
-        </p>
-        <p class="muted">
-          <strong>2) Multimodal alignment and citation grounding can diverge.</strong> Better visual grounding does not automatically imply stronger claim–URL support.
-        </p>
-        <p class="muted">
-          <strong>3) Tool use helps, but strong backbones and richer retrieval matter most.</strong> Agents can amplify backbones, but cannot replace them.
-        </p>
-      </div>
-
-      <div class="figure-card" style="margin-top:14px;">
-        <figure>
-          <div class="figure-media">
-            <img class="paper-fig" src="assets/unified_failure_analysis.svg" alt="Unified failure analysis" />
-          </div>
-          <figcaption>Unified failure-mode snapshot (placeholder).</figcaption>
-        </figure>
-      </div>
     </div>
   </section>
 
@@ -880,6 +830,24 @@
           </div>
         </div>
 
+        <div class="metrics-legend">
+          <span class="legend-title">Metric Key:</span>
+          <div class="legend-grid">
+            <div class="legend-item">
+              <span class="legend-badge">FLAE</span>
+              <span><strong>Report Quality:</strong> <b>READ</b> (Readability), <b>INSH</b> (Insightfulness), <b>STRU</b> (Structural Completeness)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge">TRACE</span>
+              <span><strong>Citation Grounding:</strong> <b>VEF</b> (Visual Evidence Fidelity), <b>CON</b> (Consistency), <b>COV</b> (Coverage), <b>FID</b> (Fidelity)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-badge">MOSAIC</span>
+              <span><strong>Visual-Text Alignment:</strong> <b>SEM</b> (Semantic Match), <b>ACC</b> (Data Accuracy), <b>VQA</b> (Complex Reasoning)</span>
+            </div>
+          </div>
+        </div>
+
         <div class="table-container">
           <table class="leaderboard-table" id="leaderboardTable">
             <thead>
@@ -902,6 +870,90 @@
           </table>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="band" id="experiments">
+    <div class="band-inner">
+      <h1 class="band-title">Experiments</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Results &amp; Findings</h2>
+
+      <div class="content has-text-justified">
+        <p class="muted">
+          Our evaluation across 25 state-of-the-art systems reveals significant trade-offs. While models like <strong>Gemini Deep Research</strong> excel in overall evidence aggregation (Coverage), even strong systems struggle with fine-grained visual details (Detail Extraction) and citation stability. The findings below highlight the complex interplay between seeing, searching, and citing.
+        </p>
+      </div>
+
+      <h3 style="margin-top:24px; font-size:20px;">Key Findings</h3>
+      
+      <div class="content has-text-justified">
+        <h4 style="font-size:16px; margin-bottom:6px;">1. Vision is a Double-Edged Sword: Beneficial Only When Reliable</h4>
+        <p class="muted">
+          Adding vision capabilities is not a guaranteed win. We compared <strong>Qwen 3 VL 235B</strong> against its text-only counterpart, <strong>Qwen 3 235B (labeled 'Qwen-Max' in Figure 6)</strong>. Surprisingly, while the multimodal model improves general grounding, it introduces a specific error mode: <strong>Detail Extraction failures (DTE)</strong>. This phenomenon is particularly evident when the <strong>text prompt already provides most of the necessary information</strong>. In these cases, while the text-only model correctly follows the text instructions, the Vision-Language model attempts to parse the accompanying images and <strong>accidentally extracts incorrect fine-grained details</strong>—such as misreading a chart axis or a small numerical label. These visual hallucinations override the correct text premises, poisoning the downstream search and synthesis process.
+        </p>
+
+        <h4 style="font-size:16px; margin-bottom:6px; margin-top:18px;">2. Multimodal Alignment &ne; Citation Grounding</h4>
+        <p class="muted">
+          Being good at "seeing" (high VEF or MOSAIC scores) does not mean a model is good at "citing" (high TRACE scores). In the 'Agentic System Comparison' of Figure 6, we compare a standard model (<strong>Gemini Pro</strong>) against its agentic version (<strong>Gemini Deep Research</strong>). While the agent retrieves far more information (higher Coverage), the graph shows a dramatic spike in <strong>Entity Mis-identification (EMI)</strong> errors (see the dark blue bar). The complexity of multi-step search and consolidating overlapping sources causes the agent to lose track of which fact belongs to which entity, leading to "hallucinations by confusion"—a problem less prevalent in simpler, single-turn workflows.
+        </p>
+
+        <h4 style="font-size:16px; margin-bottom:6px; margin-top:18px;">3. Tools Help, But the Backbone Matters Most</h4>
+        <p class="muted">
+          Agentic workflows can amplify a strong model, but they cannot fix a weak one. For instance, <strong>Gemini Deep Research</strong> (built on a strong Gemini 3 Pro backbone) achieves top-tier performance, whereas agents built on smaller models (like Tongyi 30B) struggle to match even offline large models. Interestingly, large offline models sometimes outperform web-enabled agents on evidence coverage, suggesting that current agent retrieval strategies may still have bottlenecks in surfacing the right information.
+        </p>
+      </div>
+
+      <div class="figure-card" style="margin-top:24px;">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig" src="assets/unified_failure_analysis.svg" alt="Unified failure analysis comparing Text vs. Vision and Base vs. Agent systems" />
+          </div>
+          <figcaption>
+            <strong>Figure 6:</strong> Unified failure mode analysis. <strong>Left:</strong> Adding vision increases Detail Extraction (DTE) errors. <strong>Right:</strong> Agentic systems increase Entity Mis-identification (EMI) due to complex context management.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container is-max-desktop">
+      <h2 class="has-text-centered">Qualitative Analysis</h2>
+      <div class="content has-text-justified">
+        <p class="muted">
+          To better understand the performance gaps, we provide a qualitative comparison between a high-scoring report and a low-scoring report on the same research task.
+        </p>
+      </div>
+
+      <h3 style="margin-top: 32px;">1. Success Case: Grounded & Verifiable</h3>
+      <div class="figure-card">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig" src="assets/good.png" alt="Example of a good report" />
+          </div>
+          <figcaption>
+            <strong>Figure 4:</strong> A high-quality report generated by Claude-4.5-Opus (Score: 91). The model correctly identifies the visual subject (Buddhist deities), structures the argument logically, and provides accessible, authoritative citations that strictly align with the visual evidence.
+          </figcaption>
+        </figure>
+      </div>
+
+      <h3 style="margin-top: 32px;">2. Failure Case: Hallucination & Dead Links</h3>
+      <div class="figure-card">
+        <figure>
+          <div class="figure-media">
+            <img class="paper-fig" src="assets/bad.png" alt="Example of a bad report" />
+          </div>
+          <figcaption>
+            <strong>Figure 5:</strong> A low-quality report generated by DeepSeek-V3.2 (Score: 29). The model fails to recognize the core visual task, generates misleading executive summaries, and cites inaccessible or irrelevant sources (hallucinated links), leading to a disconnect between the text and the evidence.
+          </figcaption>
+        </figure>
+      </div>
+
     </div>
   </section>
 
