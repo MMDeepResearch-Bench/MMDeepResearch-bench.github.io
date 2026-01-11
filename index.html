@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,6 +25,7 @@
       --radius:14px;
       --max:1120px;
       --max-content:980px;
+      --blue:#2563eb;
     }
     *{ box-sizing:border-box; }
     body{
@@ -33,6 +35,8 @@
       background:var(--bg);
       line-height:1.65;
     }
+
+    /* IMPORTANT: global link behavior kept minimal; author section overrides with !important */
     a{ color:inherit; text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
@@ -130,47 +134,84 @@
       letter-spacing:-.01em;
     }
 
-    /* Author Section Styling */
-    .authors-wrapper {
+    /* =========================
+       Author block (strong override)
+       ========================= */
+    .authors-wrapper{
       margin: 20px auto 0;
       max-width: 980px;
       text-align: center;
     }
-    .authors {
-      color: #0f172a;
+
+    /* ALL author names blue like paper list */
+    .authors{
+      color: var(--blue) !important;
       font-size: 16px;
       font-weight: 500;
       line-height: 1.6;
     }
-    .authors a { color: inherit; text-decoration: none; }
-    .authors a:hover { text-decoration: underline; }
+    .authors sup{ color: inherit !important; }
+    .authors a{
+      color: var(--blue) !important;
+      text-decoration: none !important;
+    }
+    .authors a:hover{ text-decoration: underline !important; }
 
-    .team-label {
+    .team-label{
       margin-top: 10px;
       font-size: 17px;
       font-weight: 800;
       color: var(--fg);
     }
 
-    .contribution-notes {
+    /* Notes in black (not grey) */
+    .contribution-notes{
       margin-top: 8px;
       font-size: 13px;
-      color: var(--muted2);
+      color: var(--fg) !important;
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: column; /* keep stacked like your screenshot */
+    }
+
+    /* Emails: black, no underline (still clickable) */
+    .contribution-notes a.contact-link{
+      color: var(--fg) !important;
+      text-decoration: none !important;
+      font-weight: 500;
+    }
+    .contribution-notes a.contact-link:hover{
+      text-decoration: none !important;
+      opacity: .85;
+    }
+
+    /* Logos under MMDR-Bench Team */
+    .affil-logos{
+      margin-top: 12px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap: 18px;
       flex-wrap: wrap;
     }
-    .contact-link{
-  color: #2563eb;           /* 学术网页常用蓝 */
-  text-decoration: underline;
-  font-weight: 500;
+    .affil-logos img{
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display:block;
+      opacity: 0.95;
     }
 
-.contact-link:hover{
-  text-decoration: underline;
-}
-
+    /* Team leader badge */
+    .team-leader{
+      font-weight: 900;
+      color: var(--blue);
+      margin-left: 2px;
+      vertical-align: baseline;
+    }
 
     /* Buttons */
     .publication-links{
@@ -596,7 +637,7 @@
       width: 140px;
     }
 
-    /* Inline note block (for short mapping + reading tips) */
+    /* Inline note block */
     .note{
       border: 1px solid var(--border);
       background: rgba(248,250,252,.75);
@@ -659,7 +700,6 @@
     return Number.isFinite(n) ? n : -Infinity;
   }
 
-  // global ranks by overall (fixed regardless of filter)
   function computeGlobalRanks() {
     const tmp = [...DATA].sort((a,b) => safeNum(b.overall) - safeNum(a.overall));
     tmp.forEach((r, i) => { r.__rank = i + 1; });
@@ -669,14 +709,8 @@
     const q = state.query.trim().toLowerCase();
     return DATA.filter(row => {
       const okFilter = (state.filter === "all") || (row.category === state.filter);
-
-      // Retrieval filter: "any" / offline / search / agent
       const okRetrieval = (state.retrieval === "any") || (row.retrieval === state.retrieval);
-
-      // If user selects "agent" category, force retrieval to match agent implicitly
-      const okAuto =
-        (state.filter !== "agent") || (row.retrieval === "agent");
-
+      const okAuto = (state.filter !== "agent") || (row.retrieval === "agent");
       const okQuery = !q || String(row.model || "").toLowerCase().includes(q);
       return okFilter && okRetrieval && okAuto && okQuery;
     });
@@ -804,7 +838,6 @@
           btn.classList.add("active");
           state.filter = btn.dataset.filter || "all";
 
-          // If user selects agent category, auto-set retrieval to agent
           if (state.filter === "agent") {
             state.retrieval = "agent";
             if (retrievalBtns) {
@@ -813,7 +846,6 @@
               if (agentBtn) agentBtn.classList.add("active");
             }
           } else if (state.retrieval === "agent") {
-            // Leaving agent view resets retrieval to any (so user isn't stuck)
             state.retrieval = "any";
             if (retrievalBtns) {
               retrievalBtns.forEach(b => b.classList.remove("active"));
@@ -834,7 +866,6 @@
           btn.classList.add("active");
           state.retrieval = btn.dataset.retrieval || "any";
 
-          // If retrieval set to agent, also set category to agent for clarity
           if (state.retrieval === "agent") {
             state.filter = "agent";
             if (filterBtns) {
@@ -843,7 +874,6 @@
               if (agent) agent.classList.add("active");
             }
           } else if (state.filter === "agent") {
-            // If leaving agent retrieval, switch category back to all
             state.filter = "all";
             if (filterBtns) {
               filterBtns.forEach(b => b.classList.remove("active"));
@@ -888,7 +918,7 @@
 
     tableBody = document.getElementById("tableBody");
     searchInput = document.getElementById("searchInput");
-    filterBtns = Array.from(document.querySelectorAll(".filter-btn"));
+    filterBtns = Array.from(document.querySelectorAll(".filter-btn:not(.retrieval-btn)"));
     retrievalBtns = Array.from(document.querySelectorAll(".retrieval-btn"));
     ths = Array.from(document.querySelectorAll("th.sortable"));
 
@@ -933,24 +963,37 @@
           MMDeepResearch-Bench: Grounded Evaluation &amp; Alignment for Multimodal Deep Research Agents
         </h1>
 
+        <!-- ===== AUTHORS (all blue) ===== -->
         <div class="authors-wrapper">
           <div class="authors">
-            Peizhou Huang<sup>*</sup>, Zixuan Zhong<sup>*</sup>, Zhongwei Wan, Donghao Zhou, Samiul Alam, Xin Wang, Zexin Li, Zhihao Dou, Li Zhu,
-            Jing Xiong, Chaofan Tao, Yan Xu, Dimitrios Dimitriadis, Tuo Zhang<sup>†</sup>, Mi Zhang<sup>†</sup>
+            Peizhou Huang<sup>*</sup>, Zixuan Zhong<sup>*</sup>,
+            Zhongwei Wan<sup>*</sup><sup class="team-leader">‡</sup>,
+            Donghao Zhou<sup class="team-leader">‡</sup>,
+            Samiul Alam, Xin Wang, Zexin Li, Zhihao Dou, Li Zhu,
+            Jing Xiong, Chaofan Tao, Yan Xu, Dimitrios Dimitriadis,
+            Tuo Zhang<sup>†</sup>, Mi Zhang<sup>†</sup>
           </div>
+
           <div class="team-label">MMDR-Bench Team</div>
-          <div class="contribution-notes"
-     style="flex-direction: column; gap: 4px; align-items: center; color: #0f172a;">
-  
-  <span>* Core Contributors</span>
 
-  <span>
-    † Corresponding Authors to:
-    <a href="mailto:mizhang.1@osu.edu" class="contact-link">mizhang.1@osu.edu</a>,
-    <a href="mailto:tuozhang@amazon.com" class="contact-link">tuozhang@amazon.com</a>
-  </span>
-</div>
+          <!-- ===== notes: black; emails black no underline ===== -->
+          <div class="contribution-notes">
+            <span>* Core Contributors</span>
+            <span>‡ Team Leaders</span>
+            <span>
+              † Corresponding Authors to:
+              <a href="mailto:mizhang.1@osu.edu" class="contact-link">mizhang.1@osu.edu</a>,
+              <a href="mailto:tuozhang@amazon.com" class="contact-link">tuozhang@amazon.com</a>
+            </span>
 
+            <!-- ===== logos directly under MMDR-Bench Team ===== -->
+            <div class="affil-logos" aria-label="Affiliation Logos">
+              <!-- Put your real files here -->
+              <img src="assets/amazon.png" alt="Amazon Science" />
+              <img src="assets/osu2.png" alt="The Ohio State University" />
+            </div>
+          </div>
+        </div>
 
         <div class="publication-links">
           <a class="button" href="paper.pdf" target="_blank" rel="noopener">
@@ -974,7 +1017,6 @@
           <span class="badge">Citation-grounded reports</span>
         </div>
 
-        <!-- Quickstart (fixes "what can I do here?" confusion) -->
         <div class="quickstart" aria-label="Quickstart">
           <a class="qs-card" href="#dataset">
             <div class="qs-top">
@@ -1079,7 +1121,6 @@
         </p>
       </div>
 
-      <!-- Task I/O Spec (fixes “what is the input/output?” confusion) -->
       <div class="spec-grid">
         <div class="spec">
           <h4>Task Input (Image–Text Bundle)</h4>
@@ -1187,7 +1228,6 @@ Claim ... [2]
           <p>Overall and per-metric results across evaluated systems</p>
         </div>
 
-        <!-- Score explanation (fixes “what is 49.41?” confusion) -->
         <div class="score-notes">
           <b>How to read the scores:</b> all metrics are reported on a <b>0–100</b> scale (higher is better) and averaged across tasks.
           <div class="mono">Overall = mean over tasks of (0.2 · FLAE + 0.5 · TRACE + 0.3 · MOSAIC)</div>
@@ -1279,7 +1319,6 @@ Claim ... [2]
         </p>
       </div>
 
-      <!-- short mapping + "how to read" tips (replaces long mapping table) -->
       <div class="note" style="margin-top: 14px;">
         <b>Note on naming:</b> in some paper figures we use the shorthand <b>Qwen-Max</b>, which corresponds to <b>Qwen 3 235B (A22B)</b> on the leaderboard.
         &nbsp;For quick inspection, sort by <b>Overall</b> to see end-to-end winners, then compare <b>Cov.</b> (retrieval breadth) vs <b>Fid.</b>/<b>Con.</b> (citation discipline),
@@ -1332,7 +1371,6 @@ Claim ... [2]
         </p>
       </div>
 
-      <!-- Failure mode glossary -->
       <div class="card" style="margin-top:14px;">
         <h3 style="margin:0 0 6px;">Failure Mode Glossary</h3>
         <div class="muted" style="font-size: 13px; font-weight: 650;">
@@ -1408,4 +1446,4 @@ Claim ... [2]
   </footer>
 </body>
 </html>
-
+```
