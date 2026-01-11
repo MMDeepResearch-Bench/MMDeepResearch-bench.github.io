@@ -1068,16 +1068,13 @@
         <div class="spec">
           <h4>Task Input (Image–Text Bundle)</h4>
           <pre class="codeblock">{
-  "task_id": "mmdr-00123",
-  "query": "Write a report answering ...",
-  "images": [
-    {"id": "img_0", "path": "images/xxx.png", "caption": "optional"}
-  ],
-  "constraints": {
-    "required_citations": true,
-    "output_style": "long-form report"
-  }
-}</pre>
+    "caption": ".......",
+    "body": "........",
+    "image_url": ["image/Q0I0.jpg", "image/Q0I1.jpg", "image/Q0I2.jpg"],
+    "tags": ["HCS"],
+    "language": "zh",
+    "difficulty": "easy"
+  }</pre>
           <ul class="mini-list">
             <li><b>Query</b> is open-ended; images are required evidence.</li>
             <li>Agents may use web search depending on the evaluation setting.</li>
@@ -1420,5 +1417,4 @@ Claim ... [2]
   </footer>
 </body>
 </html>
-
 
