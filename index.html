@@ -161,6 +161,16 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    .contact-link{
+  color: #2563eb;           /* 学术网页常用蓝 */
+  text-decoration: underline;
+  font-weight: 500;
+    }
+
+.contact-link:hover{
+  text-decoration: underline;
+}
+
 
     /* Buttons */
     .publication-links{
@@ -905,7 +915,6 @@
         <a href="#dataset">Dataset</a>
         <a href="#leaderboard">Leaderboard</a>
         <a href="#experiments">Experiments</a>
-        <a href="#contact">Contact</a>
       </div>
     </div>
   </header>
@@ -930,11 +939,18 @@
             Jing Xiong, Chaofan Tao, Yan Xu, Dimitrios Dimitriadis, Tuo Zhang<sup>†</sup>, Mi Zhang<sup>†</sup>
           </div>
           <div class="team-label">MMDR-Bench Team</div>
-          <div class="contribution-notes">
-            <span>* Core Contributors</span>
-            <span style="margin-left: 12px;">† Corresponding Authors</span>
-          </div>
-        </div>
+          <div class="contribution-notes"
+     style="flex-direction: column; gap: 4px; align-items: center; color: #0f172a;">
+  
+  <span>* Core Contributors</span>
+
+  <span>
+    † Corresponding Authors to:
+    <a href="mailto:mizhang.1@osu.edu" class="contact-link">mizhang.1@osu.edu</a>,
+    <a href="mailto:tuozhang@amazon.com" class="contact-link">tuozhang@amazon.com</a>
+  </span>
+</div>
+
 
         <div class="publication-links">
           <a class="button" href="paper.pdf" target="_blank" rel="noopener">
@@ -1379,31 +1395,6 @@ Claim ... [2]
         </figure>
       </div>
 
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container is-max-desktop">
-      <h2 class="has-text-centered">Contact</h2>
-      <div class="grid" style="margin-top:14px;">
-        <div class="card" style="grid-column: span 6;">
-          <h3>Maintainers</h3>
-          <p class="muted" style="margin-bottom: 10px;">
-            Peizhou Huang, Zixuan Zhong
-            <br><span class="muted2" style="font-size: 13px;">(Corresponding: Tuo Zhang, Mi Zhang)</span>
-          </p>
-          <a class="button" href="https://github.com/MMDeepResearch-Bench/MMDeepResearch-bench.github.io/issues" target="_blank" rel="noopener">
-            <span class="icon">🧷</span><span>Open an Issue</span>
-          </a>
-        </div>
-        <div class="card" style="grid-column: span 6;">
-          <h3>Email</h3>
-          <p class="muted">
-            For now, please use <strong>GitHub Issues</strong> for questions and submissions.
-            <br><span class="muted2" style="font-size: 13px;">(Replace this with your official contact email when ready.)</span>
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
