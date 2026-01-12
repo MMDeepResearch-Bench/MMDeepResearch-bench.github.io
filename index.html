@@ -202,12 +202,20 @@
     display: block;
     }
     .logo-amazon{
-    height: 60px; 
+    height: 50px; 
     }
     .logo-osu{
-    height: 48px;  
+    height: 30px;  
     }
-
+    .affiliations{
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1.6;
+    white-space: normal;   /* 允许自动换行 */
+    text-align: center;
+    }
 
     /* Team leader badge */
     .team-leader{
@@ -1003,8 +1011,8 @@
             <!-- ===== logos directly under MMDR-Bench Team ===== -->
             <div class="affil-logos" aria-label="Affiliation Logos">
               <!-- Put your real files here -->
-              <img src="assets/amazon.png" alt="Amazon Science" />
-              <img src="assets/osu2.png" alt="The Ohio State University" />
+                <img src="assets/amazon.png" alt="Amazon Science" class="logo-amazon" />
+                <img src="assets/osu2.png" alt="The Ohio State University" class="logo-osu" />
               <div class="affiliations">
   <sup>1</sup> University of Michigan &nbsp;
   <sup>2</sup> University College London &nbsp;
@@ -1475,6 +1483,7 @@ Claim ... [2]
   </footer>
 </body>
 </html>
+
 
 
 
