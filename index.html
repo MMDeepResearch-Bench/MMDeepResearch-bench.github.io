@@ -1082,14 +1082,16 @@
           evidence, and synthesize long-form reports to answer open-ended questions.
         </p>
         <p>
-          However, a critical gap persists in current evaluations. Real-world research is rarely text-only; it inherently requires aligning textual claims with visual evidence
-          such as scientific figures, medical imagery, or financial charts. Existing benchmarks generally fall into two siloed categories: they either focus on
-          <strong>text-only deep research</strong> (ignoring visual evidence) or <strong>short-form multimodal perception</strong> (ignoring the long-horizon synthesis and retrieval required
-          for research reports).
+         However, a critical gap remains in existing evaluation frameworks for measuring real-world research capabilities. Prior work typically falls into one of <strong>two categories<\strong>: 
+          it either focuses on <strong>text-only deep research<\strong>, systematically overlooking the role of visual evidence in research reasoning, or <strong>emphasizes short-horizon multimodal 
+          perception tasks<\strong>, such as image captioning or localized visual understanding, which fail to capture the long-horizon planning and integrative reasoning required for 
+          authentic research problems. In contrast, real-world research is rarely confined to text-only reasoning; instead, it fundamentally relies on the alignment, cross-validation, 
+          and interpretation of textual claims with visual evidence, such as scientific figures, medical imagery, or financial charts. As a result, the functional fragmentation exhibited
+          by current benchmarks leads to a significant structural deficiency, limiting their ability to faithfully measure the true research capabilities of multimodal research agents.
         </p>
         <p>
-          <strong>MMDeepResearch-Bench (MMDR-Bench)</strong> bridges this gap. It is a benchmark designed to evaluate <strong>end-to-end multimodal deep research</strong>—from parsing
-          images and planning searches to producing grounded, citation-rich reports. Every task is packaged as an <strong>image-text bundle</strong>, pushing agents beyond simple
+          <strong>MMDeepResearch-Bench (MMDR-Bench)</strong> bridges this gapbridges this gap <strong>as the first benchmark<\strong> explicitly designed to evaluate end-to-end multimodal deep research—from parsing images 
+          and planning searches to producing grounded, citation-rich reports. Every task is packaged as an <strong>image-text bundle</strong>, pushing agents beyond simple
           "seeing" toward "researching with vision."
         </p>
       </div>
@@ -1466,6 +1468,7 @@ Claim ... [2]
   </footer>
 </body>
 </html>
+
 
 
 
