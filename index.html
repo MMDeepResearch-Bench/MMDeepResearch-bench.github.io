@@ -427,6 +427,7 @@
       margin-top: 14px;
     }
     .spec{
+      min-width: 0;
       border: 1px solid var(--border);
       border-radius: 16px;
       background: #fff;
@@ -685,6 +686,7 @@
     { category: "multimodal", retrieval: "offline", model: "GPT-5 mini", overall: 38.49, read: 70.06, insh: 81.73, stru: 47.18, vef: 39.29, con: 20.02, cov: 26.64, fid: 32.61, sem: 33.90, acc: 94.23, vqa: 15.60 },
     { category: "multimodal", retrieval: "offline", model: "GPT-5.1", overall: 32.69, read: 79.34, insh: 89.04, stru: 53.00, vef: 35.71, con: 15.90, cov: 2.30, fid: 13.67, sem: 22.03, acc: 84.29, vqa: 14.32 },
     { category: "multimodal", retrieval: "offline", model: "GPT-5.2", overall: 32.76, read: 69.75, insh: 83.92, stru: 54.31, vef: 46.43, con: 14.00, cov: 1.43, fid: 5.30, sem: 12.83, acc: 50.00, vqa: 9.16 },
+    { category: "multimodal", retrieval: "offline", model: "GPT-5.4", overall: 40.84, read: 59.17, insh: 76.44, stru: 49.26, vef: 52.45, con: 14.56, cov: 6.75, fid: 5.75, sem: 19.56, acc: 69.23, vqa: 12.60 },
     { category: "multimodal", retrieval: "offline", model: "Grok-3", overall: 29.89, read: 75.17, insh: 86.13, stru: 52.24, vef: 20.00, con: 12.57, cov: 5.79, fid: 2.80, sem: 22.18, acc: 68.39, vqa: 13.89 },
     { category: "multimodal", retrieval: "offline", model: "Grok-4 (Fast Reasoning)", overall: 36.10, read: 60.62, insh: 80.49, stru: 52.99, vef: 36.43, con: 17.30, cov: 14.62, fid: 6.12, sem: 28.46, acc: 87.45, vqa: 19.34 },
 
@@ -696,6 +698,8 @@
     { category: "multimodal", retrieval: "search", model: "Gemini 2.5 Pro", overall: 38.04, read: 80.04, insh: 85.94, stru: 51.44, vef: 38.57, con: 30.18, cov: 28.77, fid: 14.98, sem: 19.47, acc: 92.86, vqa: 12.50 },
     { category: "multimodal", retrieval: "search", model: "Gemini 3 Flash", overall: 44.43, read: 81.22, insh: 90.22, stru: 52.00, vef: 45.71, con: 31.95, cov: 35.07, fid: 15.42, sem: 36.61, acc: 87.31, vqa: 18.99 },
     { category: "multimodal", retrieval: "search", model: "Gemini 3 Pro", overall: 44.68, read: 58.05, insh: 75.39, stru: 49.85, vef: 46.43, con: 37.98, cov: 41.85, fid: 6.46, sem: 40.69, acc: 80.44, vqa: 23.15 },
+    { category: "multimodal", retrieval: "search", model: "Gemini 3.1 Flash Lite", overall: 49.08, read: 56.56, insh: 86.11, stru: 48.88, vef: 30.89, con: 12.28, cov: 11.65, fid: 18.52, sem: 53.04, acc: 87.86, vqa: 28.91 },
+    { category: "multimodal", retrieval: "search", model: "Gemini 3.1 Pro", overall: 50.59, read: 59.49, insh: 87.59, stru: 52.82, vef: 35.01, con: 13.99, cov: 12.49, fid: 11.54, sem: 46.54, acc: 83.53, vqa: 31.54 },
 
     // Deep Research Agent
     { category: "agent", retrieval: "agent", model: "Tongyi Deep Research (30B-A3B)", overall: 29.02, read: 54.27, insh: 62.67, stru: 40.07, vef: 12.86, con: 25.99, cov: 30.87, fid: 24.25, sem: 20.39, acc: 93.33, vqa: 20.39 },
@@ -1259,7 +1263,7 @@ Claim ... [2]
       <div class="leaderboard-container">
         <div class="leaderboard-header">
           <h3>🏆 Model Rankings</h3>
-          <p>Overall and per-metric results across evaluated systems</p>
+          <p>Overall and per-metric results across 28 evaluated systems</p>
         </div>
 
         <div class="score-notes">
