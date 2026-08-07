@@ -1134,7 +1134,7 @@
 
         <p style="margin-top: 14px;">
           To operationalize this, we propose a set of innovatively designed evaluation metrics including <strong>FLAE</strong> (report quality), <strong>TRACE</strong> (citation verification),
-          and <strong>MOSAIC</strong> (visual integrity) that provide relaible, evidence-aligned measurements of the capacities of multimodal deep research agents.
+          and <strong>MOSAIC</strong> (visual integrity) that provide reliable, evidence-aligned measurements of the capacities of multimodal deep research agents.
         </p>
       </div>
     </div>
@@ -1366,12 +1366,11 @@ Claim ... [2]
       <h3 style="margin-top:24px; font-size:20px;">Key Findings</h3>
 
       <div class="content has-text-justified">
-        <h4 style="font-size:16px; margin-bottom:6px;">1. End-to-End Deep Research Is a System-Level Capability, Not a Writing Skill
+        <h4 style="font-size:16px; margin-bottom:6px;">1. End-to-End Performance Is Reflected in the Final Evidence-Bearing Report
 </h4>
         <p class="muted">
-          The strongest systems do not merely generate fluent reports; they succeed because they maintain end-to-end coherence across <strong>planning, retrieval, reading, and verification</strong>. 
-          Empirically, deep research agents only yield gains when built on a capable backbone and integrated into a <em>stable pipeline—agent</em> scaffolding alone cannot compensate for weak underlying models. 
-          This demonstrates that <strong>deep research performance is fundamentally a system property</strong>: failures emerge from pipeline breaks, not isolated module weaknesses.
+          MMDR evaluates observable report artifacts rather than private research trajectories. Strong systems do not merely generate fluent prose; their final reports jointly exhibit
+          <strong>verifiable citations, faithful use of supplied images, consistent visual evidence, and coherent synthesis</strong>. These capabilities must hold together in the evidence-bearing output.
         </p>
 
         <h4 style="font-size:16px; margin-bottom:6px; margin-top:18px;">2. More Evidence Can Actively Harm Entity Consistency
@@ -1404,12 +1403,51 @@ Claim ... [2]
           <b>Sem.</b> (semantic match), <b>Acc.</b> (data accuracy), and <b>VQA</b> (complex reasoning). Systems can be semantically aligned yet still fail on numeric accuracy or multi-step visual reasoning.
         </p>
 
-        <h4 style="font-size:16px; margin-bottom:6px; margin-top:18px;">6. A Practical Builder Takeaway: Measure Your Bottleneck, Not Your Average</h4>
+        <h4 style="font-size:16px; margin-bottom:6px; margin-top:18px;">6. Use Overall MMDR for Comparison and Components for Aggregate Diagnosis</h4>
         <p class="muted">
-          For improving a deep-research system, “overall score” is useful but not diagnostic. The leaderboard is designed to isolate bottlenecks:
-          <b>Read./Insh./Stru.</b> diagnose report quality; <b>Vef./Con./Cov./Fid.</b> diagnose citation-grounded reasoning; <b>Sem./Acc./VQA</b> diagnose visual integrity.
-          The same system can be excellent at long-form writing yet fail on one narrow visual detail, or it can retrieve a lot yet lose entity consistency.
+          Overall MMDR is the primary system-comparison measure. Component scores summarize aggregate failure-mode patterns across report quality
+          (<b>Read./Insh./Stru.</b>), citation grounding (<b>Vef./Con./Cov./Fid.</b>), and visual integrity (<b>Sem./Acc./VQA</b>).
+          They are coarse diagnostics across a task set, not per-report repair instructions.
         </p>
+      </div>
+
+      <h3 style="margin-top:28px; font-size:20px;">Robustness Checks</h3>
+      <p class="muted" style="margin-bottom:0;">
+        Controlled post-submission analyses test judge choice, task sampling, aggregation weights, and human anchoring without regenerating reports.
+      </p>
+
+      <div class="spec-grid">
+        <div class="spec">
+          <h4>Judge Backbone</h4>
+          <p class="muted" style="margin:0; font-size:13px;">
+            On 120 byte-identical reports from six systems and twenty shared tasks, Gemini-2.5-Pro, GPT-5.4, and Grok-4.3 preserve the same winner.
+            Top-3 overlap ranges from 2/3 to 3/3 and Top-5 overlap from 4/5 to 5/5.
+          </p>
+        </div>
+
+        <div class="spec">
+          <h4>Task Sampling</h4>
+          <p class="muted" style="margin:0; font-size:13px;">
+            Across 10,000 task-paired bootstrap resamples of the matched subset, the winner is preserved in 98.4%, 93.3%, and 99.8% of samples under
+            Gemini-2.5-Pro, GPT-5.4, and Grok-4.3, respectively.
+          </p>
+        </div>
+
+        <div class="spec">
+          <h4>Aggregation Weights</h4>
+          <p class="muted" style="margin:0; font-size:13px;">
+            Across six local perturbations of the official 0.2/0.5/0.3 weights on all 28 systems, the winner and Top-3 remain unchanged.
+            Mean/minimum Spearman correlation with the official ranking is 0.978/0.964.
+          </p>
+        </div>
+
+        <div class="spec">
+          <h4>Human Anchoring</h4>
+          <p class="muted" style="margin:0; font-size:13px;">
+            Full MMDR reaches 73.5% human-preference agreement versus 61.2% for the vanilla holistic baseline. In a blinded 48-item visual audit,
+            human-human quadratic-weighted kappa is 0.887, and all 13 VQA items classified by MOSAIC as supported receive the maximum human rating.
+          </p>
+        </div>
       </div>
 
       <div class="card" style="margin-top:14px;">
