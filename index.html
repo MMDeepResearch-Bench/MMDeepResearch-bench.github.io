@@ -705,7 +705,8 @@
     { category: "agent", retrieval: "agent", model: "Tongyi Deep Research (30B-A3B)", overall: 29.02, read: 54.27, insh: 62.67, stru: 40.07, vef: 12.86, con: 25.99, cov: 30.87, fid: 24.25, sem: 20.39, acc: 93.33, vqa: 20.39 },
     { category: "agent", retrieval: "agent", model: "Perplexity Sonar Deep Research", overall: 37.55, read: 62.29, insh: 64.35, stru: 47.80, vef: 27.86, con: 33.12, cov: 41.51, fid: 16.68, sem: 50.79, acc: 87.75, vqa: 21.22 },
     { category: "agent", retrieval: "agent", model: "ChatGPT Deep Research (o3-mini)", overall: 29.50, read: 52.40, insh: 63.61, stru: 37.30, vef: 29.29, con: 10.19, cov: 4.16, fid: 11.07, sem: 27.32, acc: 73.44, vqa: 21.75 },
-    { category: "agent", retrieval: "agent", model: "Gemini Deep Research (Gemini 3 Pro)", overall: 49.41, read: 84.53, insh: 89.56, stru: 70.86, vef: 35.71, con: 56.17, cov: 52.84, fid: 31.29, sem: 41.29, acc: 87.54, vqa: 28.45 }
+    { category: "agent", retrieval: "agent", model: "Gemini Deep Research (Gemini 3 Pro)", overall: 49.41, read: 84.53, insh: 89.56, stru: 70.86, vef: 35.71, con: 56.17, cov: 52.84, fid: 31.29, sem: 41.29, acc: 87.54, vqa: 28.45 },
+    { category: "agent", retrieval: "agent", model: "MM-ReSearchArt-v1", overall: 55.43, read: 62.15, insh: 77.40, stru: 49.41, vef: 79.29, con: 38.80, cov: 41.90, fid: 27.61, sem: 48.26, acc: 54.28, vqa: 41.42 }
   ];
 
   let state = { filter: "all", retrieval: "any", query: "", sortKey: "overall", sortDir: "desc" };
@@ -1263,7 +1264,7 @@ Claim ... [2]
       <div class="leaderboard-container">
         <div class="leaderboard-header">
           <h3>🏆 Model Rankings</h3>
-          <p>Overall and per-metric results across 28 evaluated systems</p>
+          <p>Overall and per-metric results across 29 evaluated systems</p>
         </div>
 
         <div class="score-notes">
@@ -1436,7 +1437,7 @@ Claim ... [2]
         <div class="spec">
           <h4>Aggregation Weights</h4>
           <p class="muted" style="margin:0; font-size:13px;">
-            Across six local perturbations of the official 0.2/0.5/0.3 weights on all 28 systems, the winner and Top-3 remain unchanged.
+            Across six local perturbations of the official 0.2/0.5/0.3 weights on the original 28-system set, the winner and Top-3 remain unchanged.
             Mean/minimum Spearman correlation with the official ranking is 0.978/0.964.
           </p>
         </div>
